@@ -10,14 +10,12 @@ import os
 
 # my user manager lets you get the username instead of id when used as foreign key in other models
 class MyUser(AbstractUser):
-    email = models.EmailField(blank=False)
+    email = models.EmailField(blank=True) #temp set to False to test backend frontend connection
     profile_pic = models.ImageField(upload_to='pfp/', default='defaults/defaultpfp.jpg') 
-    location = models.CharField(max_length=10, choices=LOCATION_CHOICES)
+    location = models.CharField(max_length=10, choices=LOCATION_CHOICES, default="COL2") #temp def set to COL2 to check
     fb_account = models.URLField(blank=True, validators=[validate_fb_url])
     ig_account = models.URLField(blank=True, validators=[validate_ig_url])
     mod_status = models.BooleanField(default=False)
-
-    # objects = MyUserManager()
 
     def __str__(self):
         return self.username
@@ -93,7 +91,7 @@ class HelperRole(models.Model):
         return (str(self.user)+" : "+self.serv_type[:10])
 
 class EngagementMetrics(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, editable=False, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, editable=False, on_delete=models.CASCADE, null=True)
     reachout_count = models.IntegerField(default=0) #need logic for this
     recommendations = models.IntegerField(default=0) #need logic for this
     post_count = models.IntegerField(default=0)

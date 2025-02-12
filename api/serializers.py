@@ -8,6 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
         read_only_fields = ["date_joined","mod_status"]
 
+    def create(self, validated_data):
+        print(validated_data)
+        user = MyUser.objects.create_user(**validated_data)
+        return user
+
     def update(self, instance, validated_data):
         # Fields that can be updated
         updatable_fields = ['profile_pic', 'location', 'email', 'fb_account', 'ig_account', 'first_name', 'last_name']
@@ -35,11 +40,15 @@ class UserSerializer(serializers.ModelSerializer):
 #-------------------------------------------------------------------------------#
 class PostsSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
-    replies = serializers.StringRelatedField(many=True)
+    replies = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = Posts
         fields = ['id', 'user', 'posted_date', 'posted_time', 'title', 'description', 'image', 'tags', 'replies']
         # creating a post should also add the counter in post count
+
+    def create(self, validated_data):
+        validated_data["user"] = self.context["request"].user
+        return super().create(validated_data)
 
     def update(self, instance, validated_data):
         return instance
@@ -50,6 +59,10 @@ class GiftsSerializer(serializers.ModelSerializer):
         model = Gifts
         fields = ['id', 'user', 'posted_date', 'posted_time', 'title', 'description', 'image','tags']
 
+    def create(self, validated_data):
+        validated_data["user"] = self.context["request"].user
+        return super().create(validated_data)
+    
     def update(self, instance, validated_data):
         return instance
 #-------------------------------------------------------------------------------#
@@ -82,7 +95,12 @@ class HelperRoleSerializer(serializers.ModelSerializer): #check if the user has 
         helper = HelperRole.objects.create(**validated_data)
         return helper
 
-class EngagementMetricsSerializer(serializers.Serializer): #Engagement will only be used with viewing a users profile
+class EngagementMetricsSerializer(serializers.ModelSerializer): #Engagement will only be used with viewing a users profile
+    user = UserSerializer(many=False)
     class Meta:
         model = EngagementMetrics
         fields = ['user', 'reachout_count', 'recommendations', 'post_count', 'reply_count', 'giftreq_count'] 
+
+    def create(self, validated_data):
+        validated_data["user"] = self.context["request"].user
+        return super().create(validated_data)
