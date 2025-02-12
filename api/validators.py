@@ -5,17 +5,8 @@ import re
 
 
 # Validators
-# def PFPTransform(value):
-#     with Image.open(value) as img:
-#         img = ImageOps.fit(img, (500,500))
-#         return img
-def pfp_validator(value):
-    # value = value.file
-    # if (value.width > 500) | (value.height > 500):
-    #     raise ValidationError("Only 500x500 pics accepted")
-    print(value)
-
 def ImageValidation(value):
+    value = Image.open(value)
     if (value.width > 1600) | (value.height > 1600):
         raise ValidationError("Only 1600x1600 pics accepted")
     
