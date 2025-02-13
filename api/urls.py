@@ -1,5 +1,5 @@
 from django.urls import path, include
-from api.views import  PostsViewSet , GiftViewSet , ReplyViewset , HelperRoleViewset, UserViewSet, testview
+from api.views import  PostsViewSet , GiftViewSet , ReplyViewset , HelperRoleViewset, UserViewSet,UserProfileView, testview
 # PostsView, CreatePostView , DeletePostView, GiftsView, CreateGiftReqView, DeleteGiftReqView, CreateReplyView , SingleUserView, UserProfileView,
 from rest_framework.routers import DefaultRouter
 
@@ -9,6 +9,7 @@ router.register("gifts", GiftViewSet)
 router.register("replies", ReplyViewset)
 router.register("helpers", HelperRoleViewset)
 router.register("users", UserViewSet)
+router.register("profile", UserProfileView, basename="userprofile")
 
 
 

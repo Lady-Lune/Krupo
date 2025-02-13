@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from api.views import  AllUsersView, testview
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-# CreateUserView,
+# CreateUserView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,8 +27,8 @@ urlpatterns = [
     path("api/token/", TokenObtainPairView.as_view(), name="get_token"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("api-auth/", include("rest_framework.urls")),
-    # path("api/user/register/", CreateUserView.as_view(), name="register"),  #makes a new user
-    # path("api/users/", AllUsersView.as_view(), name="allusers"),  #test: all user
+    # path("api/user/register/", CreateUserView.as_view(), name="register")  #makes a new user
+    # path("api/users/", AllUsersView.as_view(), name="allusers")  #test: all user
     path("api/test/<int:pk>", testview, name="test"),  #test
-    # path("accounts/", include("django.contrib.auth.urls")),
+    # path("accounts/", include("django.contrib.auth.urls"))
 ]
