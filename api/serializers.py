@@ -22,7 +22,8 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
         read_only_fields = ["date_joined", "mod_status"]
 
-    def create(self, validated_data): #TODO: check if new users passwords get hashed
+    def create(self, validated_data): 
+        #TODO: check if new users passwords get hashed
         print(validated_data)
         user = MyUser.objects.create_user(**validated_data)
         return user
@@ -61,6 +62,7 @@ class UserSerializer(serializers.ModelSerializer):
 # Basic serializers to update and refine later
 # Really Happy with how these work
 # -------------------------------------------------------------------------------#
+
 class PostsSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
     replies = serializers.StringRelatedField(many=True, read_only=True)
@@ -86,7 +88,8 @@ class PostsSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         return instance
-
+    
+# -------------------------------------------------------------------------------#
 
 class GiftsSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
@@ -111,11 +114,11 @@ class GiftsSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         return instance
 
-
 # -------------------------------------------------------------------------------#
 
-# -------------------------------------------------------------------------------#
 
+
+# -------------------------------------------------------------------------------#
 
 class RepliesSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
@@ -131,6 +134,7 @@ class RepliesSerializer(serializers.ModelSerializer):
         reply = Replies.objects.create(**validated_data)
         return reply
 
+# -------------------------------------------------------------------------------#
 
 class HelperRoleSerializer(
     serializers.ModelSerializer
@@ -148,6 +152,7 @@ class HelperRoleSerializer(
         helper = HelperRole.objects.create(**validated_data)
         return helper
 
+# -------------------------------------------------------------------------------#
 
 class EngagementMetricsSerializer(
     serializers.ModelSerializer
@@ -169,6 +174,7 @@ class EngagementMetricsSerializer(
         validated_data["user"] = self.context["request"].user
         return super().create(validated_data)
 
+# -------------------------------------------------------------------------------#
 
 class UserProfileSerializer(serializers.ModelSerializer):  
     reachout_count = serializers.ReadOnlyField(source='engagement_metrics.reachout_count')
@@ -197,9 +203,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "post_count",
             "reply_count",
             "giftreq_count",
-            "helper_role"
+            "helper_role",
         ]
-
         #TODO: Filtering the posts by tag - icontain- inthe DRF tutotial
 
 

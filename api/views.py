@@ -10,6 +10,9 @@ from django.contrib.auth import authenticate, login
 
 #-------------------------------------------------------------------------------#
 
+
+
+
 # Create, Update, Delete user
 class UserViewSet(viewsets.ModelViewSet):
     queryset = MyUser.objects.all()
@@ -38,7 +41,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class PostsViewSet(viewsets.ModelViewSet):
     queryset = Posts.objects.all()
     serializer_class = PostsSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 # # get all posts # need to check
 # class PostsView(generics.ListAPIView):
@@ -69,7 +72,7 @@ class PostsViewSet(viewsets.ModelViewSet):
 class GiftViewSet(viewsets.ModelViewSet):
     queryset = Gifts.objects.all()
     serializer_class = GiftsSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 # class GiftsView(generics.ListAPIView):
 #     queryset = Gifts.objects.all()
@@ -108,7 +111,7 @@ class GiftViewSet(viewsets.ModelViewSet):
 class ReplyViewset(viewsets.ModelViewSet):
     queryset = Replies.objects.all()
     serializer_class  = RepliesSerializer
-    permission_classes = [IsAuthenticated]   
+    permission_classes = [AllowAny]   
 
     # def perform_create(self, serializer):
     #     # Set the user to the currently logged-in user
@@ -124,7 +127,7 @@ class ReplyViewset(viewsets.ModelViewSet):
 class HelperRoleViewset(viewsets.ModelViewSet):
     queryset = HelperRole.objects.all()
     serializer_class  = HelperRoleSerializer
-    permission_classes = [IsAuthenticated]  
+    permission_classes = [AllowAny]  
 
 #-------------------------------------------------------------------------------#
 
@@ -134,7 +137,7 @@ class HelperRoleViewset(viewsets.ModelViewSet):
 class UserProfileView(viewsets.ReadOnlyModelViewSet):
     queryset = MyUser.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
 
 
