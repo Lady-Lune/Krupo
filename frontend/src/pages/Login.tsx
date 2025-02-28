@@ -3,6 +3,7 @@ import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import { redirect } from "react-router-dom";
 import { useState } from "react";
+import { Box, TextField, Typography, Button } from "@mui/material";
 
 
 function Login() {
@@ -21,33 +22,51 @@ function Login() {
                 })
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                redirect("/")
+                redirect("/");
             } catch (error) {
             alert(error)
         } finally {
     };
     }
     return (
-        <form onSubmit={handleSubmit} className="form-container">
-            <h1>Login</h1>
-            <input
-                className="form-input"
+        <Box
+        sx={{
+            justifyItems:"center",
+            alignContent:"center",
+            height:"100vh",
+        }}>
+        <Box component="form" onSubmit={handleSubmit}
+        sx={{
+            display:"grid",
+            border: "solid white 1px",
+            justifyItems:"center",
+            maxWidth:"fit-content",
+            height:"50vh",
+        }}>
+            <Typography variant="h2">
+                Login
+            </Typography>
+            <TextField
+                required
+                label="Required"
                 type="text"
                 value={username}
                 onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
                 placeholder="Username"
             />
-            <input
-                className="form-input"
+            <TextField
+                required
+                label="Required"
                 type="password"
                 value={password}
                 onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 placeholder="Password"
             />
-            <button className="form-button" type="submit">
+            <Button variant="contained" color="success">
                 Login
-            </button>
-        </form>
+            </Button>
+        </Box>
+        </Box>
     );
 }
 export default Login;

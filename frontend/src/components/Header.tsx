@@ -1,0 +1,32 @@
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+// import Typography from '@mui/material/Typography';
+// import LogoLongWhiteTransparent from './LogoLongWhiteTransparent';
+import long_logo from "../../src/assets/logo_long_white_trans.svg"
+function Header() {
+  return (
+      <AppBar position="static" color="primary" sx={{ height: 100 }}>
+        <Toolbar
+        sx={{
+         border: 'solid 1px black', 
+         alignContent: 'center',
+         justifyContent: 'center',
+         height: 100
+        }}   
+        >
+            <Box
+              component="img"
+              src={long_logo}                    // Use the imported SVG
+              alt="Logo"
+              sx={{ 
+                height: 85,
+               }}            // Adjust the logo size
+            />
+          {/* </Box> */}
+        </Toolbar>
+      </AppBar>
+  );
+};
+
+export default Header;

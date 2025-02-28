@@ -23,8 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ["date_joined", "mod_status"]
 
     def create(self, validated_data): 
-        #TODO: check if new users passwords get hashed
-        print(validated_data)
+        print(validated_data) #TODO: delete this line
         user = MyUser.objects.create_user(**validated_data)
         return user
 

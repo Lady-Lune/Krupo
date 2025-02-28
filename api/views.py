@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login
 
 
 
-
+#TODO: Set everything to is authenticated
 # Create, Update, Delete user
 class UserViewSet(viewsets.ModelViewSet):
     queryset = MyUser.objects.all()

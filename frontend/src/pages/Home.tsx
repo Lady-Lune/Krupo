@@ -1,9 +1,14 @@
+import CenteredTabs from "../components/CenteredTabs"
+import Header from "../components/Header"
+
 function Home() {
-    return 
-    <>
-    <h1>Home</h1>
-    
-    </>
+    return (
+        <>
+        <Header />
+        <CenteredTabs />
+        </>
+
+    )
 }
 
 export default Home
