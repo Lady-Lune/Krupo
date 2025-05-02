@@ -13,7 +13,6 @@ function Login() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         try {
             const res = await api.post("/api/token/", 
                 { 
@@ -26,6 +25,7 @@ function Login() {
             } catch (error) {
             alert(error)
         } finally {
+            // add a finally block
     };
     }
     return (
@@ -34,38 +34,63 @@ function Login() {
             justifyItems:"center",
             alignContent:"center",
             height:"100vh",
+            border:"solid red 3px"
         }}>
-        <Box component="form" onSubmit={handleSubmit}
-        sx={{
-            display:"grid",
-            border: "solid white 1px",
-            justifyItems:"center",
-            maxWidth:"fit-content",
-            height:"50vh",
-        }}>
-            <Typography variant="h2">
-                Login
-            </Typography>
-            <TextField
-                required
-                label="Required"
-                type="text"
-                value={username}
-                onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <TextField
-                required
-                label="Required"
-                type="password"
-                value={password}
-                onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <Button variant="contained" color="success">
-                Login
-            </Button>
-        </Box>
+
+            <Box component="form" onSubmit={handleSubmit}
+            sx={{
+                display:"grid",
+                border: "solid white 1px",
+                justifyItems:"center",
+                width:"450px",
+                height:"400px",
+            }}>
+
+                <Typography 
+                    variant="h2"
+                    sx={{
+                        alignContent: "center",
+                    }}>
+                    Login
+                </Typography>
+
+                <TextField
+                    required
+                    label="Required"
+                    type="text"
+                    value={username}
+                    onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                    placeholder="Username"
+                    sx={{
+                        justifyItems:"center",
+                        width:"70%",
+                    }}
+                />
+
+                <TextField
+                    required
+                    label="Required"
+                    type="password"
+                    value={password}
+                    onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                    placeholder="Password"
+                    sx={{
+                        justifyItems:"center",
+                        width:"70%",
+                    }}
+                />
+
+                <Button 
+                    type="submit"
+                    variant="contained"
+                    color="success"              
+                    sx={{
+                        width:"70%",
+                        height:"50%"
+                    }}>
+                    Login
+                </Button>
+            </Box>
         </Box>
     );
 }

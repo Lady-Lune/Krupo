@@ -1,7 +1,5 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
+import { Box, Tabs, Tab } from '@mui/material';
 
 export default function CenteredTabs() {
   const [value, setValue] = React.useState(0);
@@ -12,10 +10,17 @@ export default function CenteredTabs() {
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-      <Tabs value={value} onChange={handleChange} centered sx={{width: 'max'}}>
-        <Tab label="Gift Exchange" />
-        <Tab label="Message Board" />
-        <Tab label="Helpers" />
+      <Tabs 
+        value={value} 
+        onChange={handleChange} 
+        centered
+        variant='fullWidth' 
+        sx={{
+          width: 'max'
+          }}>
+        <Tab label="Gift Exchange" href="/"/>
+        <Tab label="Message Board" href="/"/>
+        <Tab label="Helpers" href="/"/>
       </Tabs>
     </Box>
   );

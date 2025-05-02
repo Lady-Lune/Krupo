@@ -10,6 +10,6 @@ createRoot(document.getElementById('root')!).render(
     <CssBaseline /> {/* Ensures consistent styling across browsers */}
     <StrictMode>
       <App />
-    </StrictMode>,
+    </StrictMode>
   </ThemeProvider>
 )

@@ -20,10 +20,9 @@ function Header() {
               src={long_logo}                    // Use the imported SVG
               alt="Logo"
               sx={{ 
-                height: 85,
-               }}            // Adjust the logo size
+                height: 70,
+               }}                               // Adjust the logo size
             />
-          {/* </Box> */}
         </Toolbar>
       </AppBar>
   );
