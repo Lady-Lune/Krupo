@@ -18,10 +18,10 @@ export const website_colors = {
 }
 
 export const colors = {
-  "Pale-Yellow-l1"     :'hsl(25, 58%, 79%)',
-  "Pale-Yellow"        :'hsl(25, 57%, 50%)',
-  "Pale-Yellow-d1"     :'hsl(25, 57%, 20%)',
-  "Pale-Yellow-d2"     :'hsl(25, 57%, 11%)',
+  "Pale-Yellow"     :'hsl(25, 58%, 79%)',
+  "Pale-Yellow-d1"        :'hsl(25, 57%, 50%)',
+  "Pale-Yellow-d2"     :'hsl(25, 57%, 20%)',
+  "Pale-Yellow-d3"     :'hsl(25, 57%, 11%)',
 
 
   "Kakhi"              :'hsl(40, 90%, 75%)',
@@ -356,7 +356,7 @@ const theme = createTheme({
         divider: alpha(gray[700], 0.6),
         background: {
           default: gray[900],
-          paper: 'hsl(220, 30%, 7%)',
+          paper: 'hsl(220, 30%, 7%)', 
         },
         text: {
           primary: 'hsl(0, 0%, 100%)',
