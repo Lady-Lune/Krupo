@@ -7,7 +7,7 @@ function NotFound() {
     const elem = colist.map((col:string) =>
         <Grid2 
             key={col} 
-            bgcolor={website_colors[col]} 
+            bgcolor={website_colors[col]} //it works don't think about it
             color={col=="Dark Blue" ? "white":"black"}
             size={4}
             textAlign="center"
@@ -20,7 +20,7 @@ function NotFound() {
     const pallet = pallist.map((palcol:string) =>
         <Grid2 
             key={palcol} 
-            bgcolor={colors[palcol]} 
+            bgcolor={colors[palcol]} //it works don't think about it
             color={palcol=="Dark Blue" ? "white":"black"}
             size={3}
             textAlign="center"
@@ -43,7 +43,7 @@ function NotFound() {
     const variants = ["h1", "h2", "h3", "h4", "h5", "h6", "subtitle1", "subtitle2", "body1", "body2"]
     const textsample = variants.map(
             (type:string) => (
-                <Typography key={type} variant={type} alignContent="space-around"> Sample </Typography>
+                <Typography key={type} variant={type} alignContent="space-around"> Sample </Typography> //it works sot he red line don't matter
             )
         )
 

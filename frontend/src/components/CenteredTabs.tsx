@@ -18,9 +18,9 @@ export default function CenteredTabs() {
         sx={{
           width: 'max'
           }}>
-        <Tab label="Gift Exchange" href="/"/>
-        <Tab label="Message Board" href="/"/>
-        <Tab label="Helpers" href="/"/>
+        <Tab label="Gift Exchange" value={1}/>
+        <Tab label="Message Board" value={0}/>
+        <Tab label="Helpers" value={2}/>
       </Tabs>
     </Box>
   );
