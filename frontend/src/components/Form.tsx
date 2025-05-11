@@ -1,61 +1,41 @@
-import { useState } from "react";
-import api from "../api";
-import { useNavigate } from "react-router-dom";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
-import "../styles/Form.css"
-import LoadingIndicator from "./LoadingIndicator";
-
-function Form({ route, method } : { route:string, method:string}) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-
-    const name = method === "login" ? "Login" : "Register";
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        setLoading(true);
-        e.preventDefault();
-
-        try {
-            const res = await api.post(route, { username, password })
-            if (method === "login") {
-                localStorage.setItem(ACCESS_TOKEN, res.data.access);
-                localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/")
-            } else {
-                navigate("/login")
-            }
-        } catch (error) {
-            alert(error)
-        } finally {
-            setLoading(false)
-        }
-    };
-
+import {colors} from '@/theme'
+import {
+    Anchor,
+    Button,
+    // Checkbox,
+    Container,
+    // Group,
+    Paper,
+    PasswordInput,
+    Text,
+    TextInput,
+    Title,
+  } from '@mantine/core';
+  
+  export function Form() {
     return (
-        <form onSubmit={handleSubmit} className="form-container">
-            <h1>{name}</h1>
-            <input
-                className="form-input"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <input
-                className="form-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            {loading && <LoadingIndicator />}
-            <button className="form-button" type="submit">
-                {name}
-            </button>
-        </form>
+      <Container size={420} my={40} >
+        <Title ta="center"> 
+          Welcome back!
+        </Title>
+  
+        <Text ta="center" mt={5}>
+          Do not have an account yet? <Anchor>Create account</Anchor>
+        </Text>
+  
+        <Paper withBorder shadow="sm" p={22} mt={30} radius="md">
+          <TextInput label="Email" placeholder="you@mantine.dev" required radius="md" />
+          <PasswordInput label="Password" placeholder="Your password" required mt="md" radius="md" />
+          {/* <Group justify="space-between" mt="lg">
+            <Checkbox label="Remember me" />
+            <Anchor component="button" size="sm">
+              Forgot password?
+            </Anchor>
+          </Group> */}
+          <Button fullWidth mt="xl" radius="md" bg={colors["Moss Green"]}  ff="Averia Gruesa Libre"  lts={1} p={3} fw={1}>
+            SIGN IN
+          </Button>
+        </Paper>
+      </Container>
     );
-}
-
-export default Form
+  }
