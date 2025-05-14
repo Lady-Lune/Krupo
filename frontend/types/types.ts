@@ -2,7 +2,6 @@ export interface ThemeColors {
     [key:string]:string;
 }
 
-
 export interface User {
     id:number;
     username:string;

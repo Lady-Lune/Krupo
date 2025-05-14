@@ -1,17 +1,16 @@
 import '@mantine/core/styles.css';
 import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import NotFound from './pages/NotFound';
-import MessageBoard from './pages/LandingPost';
-import { BrowserRouter , Routes , Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter , Routes , Route, Navigate } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
 
 
 function Logout() {
-  const navigate = useNavigate();
-
   localStorage.clear()
   return (
-    navigate("/login")
+    <Navigate to="/login" />
   ) 
 }
 
@@ -25,19 +24,19 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* The following route is protected - unauthorized users can't access it */}
-        {/* <Route
-          path="/"
+        <Route
+          path="/home"
           element={
             <ProtectedRoute>
-              <Home />
+              <LandingPage />
             </ProtectedRoute>
           }
-        />*/}
+        />
         <Route path="/login" element={<Login />} />
-        {/*<Route path="/logout" element={<Logout />} />
-        <Route path="/register" element={<RegisterAndLogout />} /> */}
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/page" element={<MessageBoard />} />
+        <Route path="/" element={<LandingPage />} />
       </Routes> 
     </BrowserRouter>
   );

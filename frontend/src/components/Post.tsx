@@ -2,13 +2,26 @@ import { Avatar, Card, Image, Text, AspectRatio, Pill, PillGroup } from "@mantin
 import { colors } from "@/theme"
 import PostHead from "./PostHead"
 
-// User.username
-// User.profile_pic
-// Post.posted_date
-// Post.image
-// Post.decription
-// Post.tags
-export default function Post(){
+// username
+// profile_pic
+// posted_date
+// image
+// decription
+// tags
+
+interface PostProps {
+    username: string;
+    posted_date: string;
+    posted_time: string;
+    title: string;
+    description: string;
+    image?: string;
+    tags: string;
+    replies?: Array<string>;
+}
+
+
+const Post = ({username, posted_date, posted_time, title, description, image, tags, replies}:PostProps) => {
     return(
         <>
         <Card
@@ -21,25 +34,35 @@ export default function Post(){
             bg={colors["Pale-Yellow"]}
         >
 
-            <PostHead /> {/* User.username, User.profile_pic, Post.posted_date*/}
+            <PostHead username={username} profile_pic="" posted_date={posted_date} /> {/* User.username, User.profile_pic, Post.posted_date*/}
+
+            <Card.Section p="5 15">
+                <Text
+                    ff="Average"
+                    size="md"
+                    ta="center"
+                    lh={1.25}
+                >
+                    {title}
+                </Text>
+            </Card.Section>
+
             <Card.Section p="10 15">
                 <AspectRatio ratio={1080/720}>
-                {/* src=post.img */}
                     <Image 
-                        src="src\assets\Logo - Color - W (2).png" //TODO:change later
+                        src={image} //TODO:change later
+                        //"src\assets\Logo - Color - W (2).png"
                     />
                 </AspectRatio>
             </Card.Section>
-
             
             <Card.Section p="5 15">
                 <Text
                     ff="Average Sans"
                     fz={13}
                     lh={1.25}
-                    
                 >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  occaecat cupidatat non proident, sunt in culpa qui officia deserunt  mollit anim id est laborum
+                    {description}
                 </Text>
             </Card.Section>
 
@@ -50,11 +73,14 @@ export default function Post(){
                     ff="Averia Gruesa Libre"
                     fz={13}
                 >
-                    #Tag
+                    {tags}
                 </Pill>
                 </PillGroup>
             </Card.Section>
         </Card>
         </>
     )
+    
 }
+
+export default Post;
