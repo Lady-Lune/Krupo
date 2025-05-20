@@ -41,28 +41,3 @@ export default function HelperCard() {
     )
 };
 
-{/* <Grid align='center'>
-<Grid.Col
-    span={3}
-    // bd="solid hsla(187, 21.30%, 75.10%, 0.21) 1px"
-    bg=""
->
-<Image
-    radius={25}
-    src="src\assets\Logo - Color - W (2).png"
->
-</Image>
-</Grid.Col>
-
-<Grid.Col
-    span={9}
->
-<Stack gap={0.5}>
-    <Text size='sm' w={265}>Username</Text>
-    <Text size='xs' w={265}>Location</Text>
-    <Text size='sm' w={265}>Job</Text>
-    <Text size='sm' w={265} h={50} lineClamp={1} truncate='end'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem ipsa quos iusto minima. Nam, assumenda itaque dignissimos veniam dolorem consequatur id! Nulla laboriosam nesciunt saepe cumque consectetur perspiciatis fugiat tempora.</Text>
-    <Button size='xs' w={265} radius={25} bg={colors["Moss Green"]}>POST</Button>
-</Stack>
-</Grid.Col>
-</Grid> */}

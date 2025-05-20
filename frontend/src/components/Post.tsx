@@ -1,6 +1,7 @@
 import { Avatar, Card, Image, Text, AspectRatio, Pill, PillGroup } from "@mantine/core"
 import { colors } from "@/theme"
 import PostHead from "./PostHead"
+import { PostProps } from "../../types/types"
 
 // username
 // profile_pic
@@ -9,16 +10,7 @@ import PostHead from "./PostHead"
 // decription
 // tags
 
-interface PostProps {
-    username: string;
-    posted_date: string;
-    posted_time: string;
-    title: string;
-    description: string;
-    image?: string;
-    tags: string;
-    replies?: Array<string>;
-}
+
 
 
 const Post = ({username, posted_date, posted_time, title, description, image, tags, replies}:PostProps) => {
@@ -34,7 +26,7 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
             bg={colors["Pale-Yellow"]}
         >
 
-            <PostHead username={username} profile_pic="" posted_date={posted_date} /> {/* User.username, User.profile_pic, Post.posted_date*/}
+            <PostHead username={username} profile_pic="" posted_date={"Placeholder"} /> {/*posted_date} />*/} {/* User.username, User.profile_pic, Post.posted_date*/}
 
             <Card.Section p="5 15">
                 <Text
@@ -51,6 +43,7 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
                 <AspectRatio ratio={1080/720}>
                     <Image 
                         src={image} //TODO:change later
+                        bd={0}
                         //"src\assets\Logo - Color - W (2).png"
                     />
                 </AspectRatio>
@@ -73,7 +66,7 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
                     ff="Averia Gruesa Libre"
                     fz={13}
                 >
-                    {tags}
+                    #{tags}
                 </Pill>
                 </PillGroup>
             </Card.Section>

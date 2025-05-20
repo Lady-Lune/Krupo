@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import { BrowserRouter , Routes , Route, Navigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
+import UserProfile from './components/UserProfile';
 
 
 function Logout() {
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes> 
     </BrowserRouter>
   );
