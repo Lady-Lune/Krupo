@@ -13,26 +13,24 @@ import { PostProps } from "../../types/types"
 
 
 
-const Post = ({username, posted_date, posted_time, title, description, image, tags, replies}:PostProps) => {
+const Post = ({username, posted_date, posted_time, title, description, image, tags, replies, buttonbehaviour, posttype}:PostProps) => {
     return(
         <>
         <Card
             display="flex"
-            withBorder
-            w={{
-                base:300,
-                sm:350,
-            }}
+            // w={{
+            //     base:300,
+            //     md:250,
+            // }}
             bg={colors["Pale-Yellow"]}
         >
 
-            <PostHead username={username} profile_pic="" posted_date={"Placeholder"} /> {/*posted_date} />*/} {/* User.username, User.profile_pic, Post.posted_date*/}
+            <PostHead username={username} profile_pic="" posted_date={posted_date} buttonbehaviour={buttonbehaviour}/> {/*posted_date} />*/} {/* User.username, User.profile_pic, Post.posted_date*/}
 
             <Card.Section p="5 15">
                 <Text
                     ff="Average"
                     size="md"
-                    ta="center"
                     lh={1.25}
                 >
                     {title}
@@ -40,10 +38,10 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
             </Card.Section>
 
             <Card.Section p="10 15">
-                <AspectRatio ratio={1080/720}>
+                <AspectRatio ratio={posttype=="ask"? 1080/720:720/720}>
                     <Image 
                         src={image} //TODO:change later
-                        bd={0}
+                        bd="1px solid black"
                         //"src\assets\Logo - Color - W (2).png"
                     />
                 </AspectRatio>

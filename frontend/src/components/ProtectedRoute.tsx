@@ -25,7 +25,7 @@ function ProtectedRoute({ children }: ProtectedRouteProps) {
             const res = await api.post("/api/token/refresh/", {
                 refresh: refreshToken,
             });
-            // if successful store the access token from the response data 
+            // if successful store the access token from the response data
             if (res.status === 200) {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 setIsAuthorized(true);

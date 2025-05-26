@@ -6,7 +6,7 @@ interface HeaderProps{
     user?:User
 }
 
-export default function Header(props:HeaderProps) {
+const Header = (props:HeaderProps) => {
     return(
         <>
         <Container 
@@ -30,3 +30,4 @@ export default function Header(props:HeaderProps) {
         </>
     )
 };
+export default Header;

@@ -1,56 +1,82 @@
 import api from "@/api"
-import { PostorGift } from '../../types/types';
-import Post from "@/components/Post";
-import { useState } from "react";
+import { Grid } from "@mantine/core"
+import { useEffect, useState } from "react"
+import { PostorGift } from "../../types/types"
+import Post from "../components/Post"
+import { colors } from "@/theme"
+import { response } from "./SampleResponse"
+
+
 
 
 const MessageBoard = () => {
-    // const [data, setData] = useState<PostorGift>(sample);
-    // async () => {
-    // try {
-    //     const res = await api.get("api/posts/9")
-    //     const data:PostorGift = res.data
-    //     console.log(res.data)
-    //     setData(data)
-    // } catch (error) {
-    //     alert(error)
-    // }
-    // }
-    const data:PostorGift = {
-    "id": 8,
-    "user": {
-        "id": 6,
-        "username": "krop",
-        "profile_pic": "http://127.0.0.1:8000/pfp/defaultpfp.jpg",
-        "location": "COL0",
-        "email": "info.krupo@gmail.com",
-        "fb_account": "",
-        "ig_account": "",
-        "date_joined": "2025-02-02T19:18:09Z",
-        "first_name": "",
-        "last_name": "",
-        "mod_status": false
-    },
-    "posted_date": "2025-02-07",
-    "posted_time": "00:44:11.980557",
-    "title": "post_deepseek help",
-    "description": "post_deepseek help",
-    "image": null,
-    "tags": "post_deepseek help",
-    "replies": []
+        const [posts, setPosts] = useState<PostorGift[]>(response);
+        // const getPosts = async
+        useEffect( () => {
+            const getRespose = async () => {
+                const response = await api.get('/api/posts')
+                console.log(response.data)
+                setPosts(response.data)
+            }
+            getRespose();
+    },[])   
+
+
+
+    return (
+    <>
+    <Grid bg={colors["Teal-l1"]} p="md" gutter="xl" columns={12} justify="center">
+        {
+        posts.map(
+            (post) => {
+                return (
+                <Grid.Col 
+                    key={post.id}
+                    span={{
+                        base:12,
+                        xs:10,
+                        sm:8,
+                        md:6,
+                        lg:4,
+                        xl:3,
+                    }}
+                >
+                    <Post buttonbehaviour='open profile' posttype="ask" username={post.user? post.user.username:"null"} {...post} />
+                </Grid.Col>
+                    )
+            }
+        )
+    }
+    </Grid>
+    </>
+    
+    )
 }
 
-    return(
-            <Post 
-            username={data.user.username? data.user.username:"No User"} 
-            posted_date={data.posted_date} 
-            posted_time={data.posted_time} 
-            title={data.title} 
-            description={data.description} 
-            image={data.image}
-            tags={data.tags}
-            replies={data.replies} 
-            />
-            )
-}
 export default MessageBoard;
+
+        // <Button onClick={getPosts} > Get Post </Button>
+        // <Post behaviour='open profile' username={post.user? post.user.username:"null" } {...post} />
+
+        // <Grid bg={colors["Teal-l1"]} p="md"  gutter="xl" justify="center">
+        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
+        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
+        //             <Space h={450} />
+        //         </Box>
+        //     </Grid.Col>
+        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
+        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
+        //             <Space h={450} />
+        //         </Box>
+        //     </Grid.Col>
+        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
+        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
+        //             <Space h={450} />
+        //         </Box>
+        //     </Grid.Col>
+        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
+        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
+        //             <Space h={450} />
+        //         </Box>
+        //     </Grid.Col>
+        // </Grid>
