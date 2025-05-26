@@ -7,14 +7,3 @@
     border: "1px solid black";
     padding: 0.25rem;
 }
-
-
-
-.body{
-    border: "1px solid black";
-    background-color:var(--mantine);
-}
-
-.header{
-    border: "1px solid black";
-}

@@ -6,7 +6,7 @@ export interface ThemeColors {
 export interface User {
     id:number;
     username:string;
-    password:string;
+    // password:string;
     profile_pic:string;
     location:string;
     email:string;
@@ -21,14 +21,14 @@ export interface User {
 
 export interface PostorGift {
     id:number;
-    user:User;
+    user:User; //change to User maybe
     posted_date:string;
     posted_time:string 
     title:string;
     description:string;
     image:string | null;
     tags:string;
-    replies?:Reply[];
+    replies?:string[]; //change to Reply[] maybe
 }
 
 export interface PostProps {
@@ -40,6 +40,8 @@ export interface PostProps {
     image?: string | null;
     tags: string;
     replies?: string[];
+    buttonbehaviour:string;
+    posttype:string;
 }
 
 export interface Reply {
@@ -86,4 +88,15 @@ export interface UserProfile {
     reply_count:number;
     giftreq_count:number;
     helper_role:HelperCard[]
+}
+
+export interface HelperCardProps{
+    username:string;
+    location:string;
+    serv_type:string;
+    serv_desc:string;
+    // username
+    // User.location
+// HelperRole.serv_type
+// HelperRole.serv_desc
 }
