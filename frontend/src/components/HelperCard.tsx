@@ -13,8 +13,6 @@ export default function HelperCard({username, location, serv_type, serv_desc}:He
     return(
         <>
             <Card
-                w={{
-                }}
                 withBorder
                 bd="3px solid hsl(185, 21%, 45%)"
                 bg="#F9F9EF"
@@ -31,8 +29,11 @@ export default function HelperCard({username, location, serv_type, serv_desc}:He
                     radius={25}
                     bd="1px solid hsl(185, 21%, 45%)"
                     w="30%"
+                    h="85%"
+                    pos="absolute"
+                    left={10}
                 />
-                <Stack gap={0.5} w="65%" h="90%"> {/*pos="absolute" right={10}*/}
+                <Stack gap={0.5}  h="90%"> {/*pos="absolute" right={10}*/}
                     <Text size='md' >{username}</Text> {/*w={265}*/}
                     <Text size='xs' >{location}</Text> {/*w={265}*/}
                     <Text size='sm' >{serv_type}</Text> {/*w={265}*/}
