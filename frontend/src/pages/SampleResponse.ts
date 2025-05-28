@@ -131,8 +131,8 @@ export const helpersresponse = [
             "last_name": "",
             "mod_status": false
         },
-        "serv_type": "1",
-        "serv_desc": "1"
+        "serv_type": "Lorem Ipsum",
+        "serv_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque error doloremque necessitatibus ad cupiditate"
     },
         {
         "id": 1,
@@ -149,8 +149,8 @@ export const helpersresponse = [
             "last_name": "",
             "mod_status": false
         },
-        "serv_type": "2",
-        "serv_desc": "2"
+        "serv_type": "Lorem Ipsum",
+        "serv_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque error doloremque necessitatibus ad cupiditate"
     },
         {
         "id": 1,
@@ -167,8 +167,8 @@ export const helpersresponse = [
             "last_name": "",
             "mod_status": false
         },
-        "serv_type": "3",
-        "serv_desc": "3"
+        "serv_type": "Lorem Ipsum",
+        "serv_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque error doloremque necessitatibus ad cupiditate"
     },
         {
         "id": 1,
@@ -185,8 +185,8 @@ export const helpersresponse = [
             "last_name": "",
             "mod_status": false
         },
-        "serv_type": "4",
-        "serv_desc": "4"
+        "serv_type": "Lorem Ipsum",
+        "serv_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque error doloremque necessitatibus ad cupiditate"
     },
         {
         "id": 1,
@@ -203,8 +203,8 @@ export const helpersresponse = [
             "last_name": "",
             "mod_status": false
         },
-        "serv_type": "5",
-        "serv_desc": "5"
+        "serv_type": "Lorem Ipsum",
+        "serv_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque error doloremque necessitatibus ad cupiditate"
     },
         {
         "id": 1,
@@ -221,7 +221,7 @@ export const helpersresponse = [
             "last_name": "",
             "mod_status": false
         },
-        "serv_type": "6",
-        "serv_desc": "6"
+        "serv_type": "Lorem Ipsum",
+        "serv_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque error doloremque necessitatibus ad cupiditate"
     }
 ]

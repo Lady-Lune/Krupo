@@ -1,12 +1,19 @@
 import { Avatar, Container, Image } from "@mantine/core";
 import { User } from "../../types/types";
 import MainTabs from "./MainTabs";
+import { useEffect } from "react";
 
 interface HeaderProps{
     user?:User
 }
 
 const Header = (props:HeaderProps) => {
+    // useEffect( () => {
+    // const getRespose = async () => {
+    //     const response = await api.get('/api/helpers')
+    //     console.log(response.data)
+    // }
+    // },[])   
     return(
         <>
         <Container 

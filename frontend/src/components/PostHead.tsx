@@ -1,5 +1,6 @@
 import { colors } from "@/theme";
 import { Avatar, Card, ActionIcon, Stack, Text, Group, Image } from "@mantine/core";
+import { useFormContext , FormContext } from "./FormContext";
 
 // User.username
 // User.profile_pic
@@ -8,15 +9,24 @@ interface PostHeadProps {
     username : string;
     posted_date : string;
     profile_pic? : string;
-    buttonbehaviour: string
+    buttonbehaviour: "send post" | "open profile";
 
 }
 
 const PostHead = ({username, posted_date, profile_pic, buttonbehaviour}:PostHeadProps) => {
+    // const formContext = buttonbehaviour === "send post"? useFormContext(): null;
+    // const {form , handleSubmit} = useFormContext();
+
+
     const handleClick = () => {
-        if (buttonbehaviour=="send post"){
+        if (buttonbehaviour==="send post"){
             console.log("post sent")
-        } else if (buttonbehaviour="open profile"){
+
+            // form.onSubmit((values) => {
+                // console.log("Submitting form (PostHead-handleClick-form.onSubmit=>handleSubmit):", values);
+                // handleSubmit(values);
+            // })();
+        } else if (buttonbehaviour==="open profile"){
             console.log("open profile")
         }
     }
@@ -35,7 +45,7 @@ const PostHead = ({username, posted_date, profile_pic, buttonbehaviour}:PostHead
             
             <Avatar 
                 radius="xl"
-                size={buttonbehaviour=="send post"? "md":50}
+                size={buttonbehaviour==="send post"? "md":50}
                 src={profile_pic? profile_pic:null} //not needed when we have default profile
 
             />  

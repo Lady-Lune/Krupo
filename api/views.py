@@ -141,9 +141,6 @@ class UserProfileView(viewsets.ReadOnlyModelViewSet):
 
 
 
-
-
-
 #-------------------------------------------------------------------------------#
 
 #for test purposes

@@ -20,31 +20,31 @@ import { useForm } from "@mantine/form"
 
 
 // remove later
-const res = {
-  id: 1,
-  user: 'Anon1',
-  posted_date: '2025-02-06',
-  posted_time: '21:48:54.398664',
-  title: 'Post1',
-  description:
-    'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae, enim. Impedit doloremque, quos aliquid libero laudantium similique aliquam beatae voluptatem, cum iusto atque nesciunt excepturi recusandae officiis. Eius, sit nihil.',
-  image: 'src/assets/Logo - Color - W (2).png',
-  tags: 'Post1',
-  replies: ['testingtesting1...', 'istheuserinclud...', 'istheuserinclud...', 'test reply afte...'],
-};
-//
-const res2 = {
-  id: 2,
-  user: 'Anon2',
-  posted_date: '2025-02-06',
-  posted_time: '21:48:54.398664',
-  title: 'Post2',
-  description:
-    'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae, enim. Impedit doloremque, quos aliquid libero laudantium similique aliquam beatae voluptatem, cum iusto atque nesciunt excepturi recusandae officiis. Eius, sit nihil.',
-  image: 'src/assets/Logo - Color - W (2).png',
-  tags: 'Post2',
-  replies: ['testingtesting1...', 'istheuserinclud...', 'istheuserinclud...', 'test reply afte...'],
-};
+// const res = {
+//   id: 1,
+//   user: 'Anon1',
+//   posted_date: '2025-02-06',
+//   posted_time: '21:48:54.398664',
+//   title: 'Post1',
+//   description:
+//     'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae, enim. Impedit doloremque, quos aliquid libero laudantium similique aliquam beatae voluptatem, cum iusto atque nesciunt excepturi recusandae officiis. Eius, sit nihil.',
+//   image: 'src/assets/Logo - Color - W (2).png',
+//   tags: 'Post1',
+//   replies: ['testingtesting1...', 'istheuserinclud...', 'istheuserinclud...', 'test reply afte...'],
+// };
+// //
+// const res2 = {
+//   id: 2,
+//   user: 'Anon2',
+//   posted_date: '2025-02-06',
+//   posted_time: '21:48:54.398664',
+//   title: 'Post2',
+//   description:
+//     'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vitae, enim. Impedit doloremque, quos aliquid libero laudantium similique aliquam beatae voluptatem, cum iusto atque nesciunt excepturi recusandae officiis. Eius, sit nihil.',
+//   image: 'src/assets/Logo - Color - W (2).png',
+//   tags: 'Post2',
+//   replies: ['testingtesting1...', 'istheuserinclud...', 'istheuserinclud...', 'test reply afte...'],
+// };
 
 // const sample:PostorGift = {
 //     "id": 8,

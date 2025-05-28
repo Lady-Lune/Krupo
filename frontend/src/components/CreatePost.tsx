@@ -4,6 +4,7 @@ import { colors } from "@/theme"
 import PostHead from "./PostHead"
 import classes from './CreatePost.module.css'
 import { useForm , hasLength } from "@mantine/form"
+import { FormContext } from "./FormContext"
 // import { PostProps } from "../../types/types"
 
 // username
@@ -40,12 +41,18 @@ const CreatePost = ({type}:CreatePostProps) => {
         }
     });
 
+    //values are all the same type values in form
+    const handleSubmit = (values: typeof form.values) => {
+        console.log('Form submitted(CreatePost-handleSubmit):', values);
+    };
+
     // const handleSubmit = (values) => {
     //     console.log('Form submitted:', values);
     // };
 
     return(
         <>
+        {/* <FormContext.Provider value={{ form, handleSubmit}} > */}
         <Card
             display="flex"
             // withBorder
@@ -54,12 +61,16 @@ const CreatePost = ({type}:CreatePostProps) => {
             //     sm:350,
             // }}
             bg={colors["Pale-Yellow"]}
+            component="form"
+            onSubmit={form.onSubmit(handleSubmit)}
             
         >
-            <PostHead username="User" profile_pic="" posted_date="XX-XX-XXXX" buttonbehaviour="send post"/> 
+            <PostHead username="User" profile_pic="" posted_date="XX-XX-XXXX" buttonbehaviour="send post" /> 
             {/* posted_date} /> */} {/* User.username, User.profile_pic, Post.posted_date */}
                 <TextInput
                     placeholder="Title"
+                    key={form.key('title')}
+                    {...form.getInputProps('title')}
                     size="md"
                     classNames={
                         {
@@ -71,6 +82,8 @@ const CreatePost = ({type}:CreatePostProps) => {
                 </TextInput>
 
                 <FileInput
+                    key={form.key('image')}
+                    {...form.getInputProps('image')}
                     placeholder="Image"
                     classNames={
                         {
@@ -82,6 +95,8 @@ const CreatePost = ({type}:CreatePostProps) => {
                 />
 
                 <Textarea
+                    key={form.key('description')}
+                    {...form.getInputProps('description')}
                     placeholder="Description"
                     classNames={
                         {
@@ -92,6 +107,8 @@ const CreatePost = ({type}:CreatePostProps) => {
                 >
                 </Textarea>
                 <TextInput
+                    key={form.key('tags')}
+                    {...form.getInputProps('tags')}
                     placeholder="Tags"
                     classNames={
                         {
@@ -102,6 +119,7 @@ const CreatePost = ({type}:CreatePostProps) => {
                 >
                 </TextInput>
         </Card>
+        {/* </FormContext.Provider> */}
 
         {/* <Affix bottom={30} right={30}>
             <Button name="gift" p="md" size="xl" radius="xl" > */}

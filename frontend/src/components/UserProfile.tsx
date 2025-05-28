@@ -14,7 +14,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { colors } from "../theme"
 
 const UserProfile = () => {
-  const [opened, {open, close}] = useDisclosure(false); //set to true to be opened by default
+  const [opened, {open, close}] = useDisclosure(true); //set to true to be opened by default
   return (
       <>
       <Modal opened={opened} onClose={close} title="Username" >

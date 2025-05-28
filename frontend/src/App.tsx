@@ -9,7 +9,6 @@ import UserProfile from './components/UserProfile';
 
 
 function Logout() {
-  localStorage.clear()
   return (
     <Navigate to="/login" />
   ) 

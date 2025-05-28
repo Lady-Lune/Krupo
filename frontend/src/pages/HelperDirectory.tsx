@@ -19,17 +19,18 @@ const HelperDirectory = () => {
                 console.log(response.data)
                 setHelpers(response.data)
             }
-            getRespose();
+            // getRespose(); //Uncomment to get the data form backend
     },[])   
 
     return (
     <>
-    <Grid bg={colors["Teal-l1"]} p="md" gutter="xl" columns={12} justify="center">
+    <Grid p="md" gutter="xl" columns={12} justify="center"> {/*bg={colors["Teal-l1"]}*/}
         {
         helpers.map(
-            (helper) => {
+            (helper, index) => {
                 return (
                 <Grid.Col 
+                    key={`${helper.id}-${index}`}                   
                     span={{
                         base:12,
                         xs:9,

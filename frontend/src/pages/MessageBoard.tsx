@@ -18,20 +18,20 @@ const MessageBoard = () => {
                 console.log(response.data)
                 setPosts(response.data)
             }
-            getRespose();
+            // getRespose(); //Uncomment to get the data form backend
     },[])   
 
 
 
     return (
     <>
-    <Grid bg={colors["Teal-l1"]} p="md" gutter="xl" columns={12} justify="center">
+    <Grid  p="md" gutter="xl" columns={12} justify="center"> {/*bg={colors["Teal-l1"]}*/}
         {
         posts.map(
-            (post) => {
+            (post, index) => {
                 return (
                 <Grid.Col 
-                    key={post.id}
+                    key={`${post.id}-${index}`}
                     span={{
                         base:12,
                         xs:10,

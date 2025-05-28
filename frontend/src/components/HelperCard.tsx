@@ -33,7 +33,7 @@ export default function HelperCard({username, location, serv_type, serv_desc}:He
                     pos="absolute"
                     left={10}
                 />
-                <Stack gap={0.5}  h="90%"> {/*pos="absolute" right={10}*/}
+                <Stack gap={0.5} h="90%" w="75%" p="0 0 0 85"> {/*pos="absolute" right={10}*/}
                     <Text size='md' >{username}</Text> {/*w={265}*/}
                     <Text size='xs' >{location}</Text> {/*w={265}*/}
                     <Text size='sm' >{serv_type}</Text> {/*w={265}*/}
