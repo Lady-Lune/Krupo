@@ -1,7 +1,7 @@
-env
+env/
 db.sqlite3
-media
-BIN - deleted frontend
-frontend/node_modules
-# ...
-.vscode
+BIN - deleted frontend/
+media/
+frontend/node_modules/
+.vscode/
+api/
