@@ -11,8 +11,10 @@ import {
   } from '@mantine/core';
 import { Link , Navigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
-import { ACCESS_TOKEN , REFRESH_TOKEN } from '@/constants';
+import { ACCESS_TOKEN , REFRESH_TOKEN, USER } from '@/constants';
 import api from '@/api';
+import { jwtDecode } from "jwt-decode";
+
 
 const Login = () => {
     const form = useForm({
@@ -36,6 +38,11 @@ const Login = () => {
         })
         localStorage.setItem(ACCESS_TOKEN, res.data.access);
         localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+
+        const decoded = jwtDecode<{ user_id:number }>(res.data.access);
+        localStorage.setItem(USER, `${decoded.user_id}`);
+
+
         window.location.href = "/home";
     } catch (error) {
       alert(error)

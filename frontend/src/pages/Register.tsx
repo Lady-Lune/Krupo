@@ -115,9 +115,8 @@ const Register = () => {
                 email:values.email,
                 fb_account:values.fb_account,
                 ig_account:values.ig_account
-
             })
-            // redirect /login
+            window.location.href = "/login";
         } catch (error) {
             alert(error)
         } finally {

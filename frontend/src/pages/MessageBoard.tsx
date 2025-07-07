@@ -7,20 +7,16 @@ import { colors } from "@/theme"
 import { response } from "./SampleResponse"
 
 
-
-
 const MessageBoard = () => {
         const [posts, setPosts] = useState<PostorGift[]>(response);
-        // const getPosts = async
         useEffect( () => {
             const getRespose = async () => {
                 const response = await api.get('/api/posts')
                 console.log(response.data)
                 setPosts(response.data)
             }
-            // getRespose(); //Uncomment to get the data form backend
+            getRespose(); 
     },[])   
-
 
 
     return (

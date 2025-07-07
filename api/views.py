@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from rest_framework import generics
-from .serializers import UserSerializer, PostsSerializer, GiftsSerializer, RepliesSerializer, HelperRoleSerializer, UserProfileSerializer
+from .serializers import UserSerializer, PostsSerializer, GiftsSerializer, RepliesSerializer, HelperRoleSerializer, UserProfileSerializer, CustomTokenObtainPairSerializer
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from .models import MyUser, Posts, Gifts, Replies, HelperRole
 from rest_framework import viewsets
 from django.contrib.auth import authenticate, login
+from rest_framework_simplejwt.views import TokenObtainPairView
+from django.contrib.auth import logout
+
+
 # Create your views here.
 #?the place you put all the restframework view in - we are creating rest api end points here
 
@@ -154,3 +158,29 @@ def testview(request, pk):
     serializer = UserSerializer(user)
     data = serializer.data
     return render(request, 'api/index.html', {'message': data})
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth import logout
+
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        try:
+            logout(request)
+            return Response(
+                {"message": "Successfully logged out"},
+                status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+                {"error": "Logout failed", "detail": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import MyUser, Posts, Gifts, Replies, HelperRole, EngagementMetrics
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import login
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -207,3 +209,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         #TODO: Filtering the posts by tag - icontain- inthe DRF tutotial
 
 
+# -------------------------------------------------------------------------------#
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        # ✅ Django login to set session and send login signal
+        request = self.context["request"]
+        login(request, self.user)  # This triggers user_logged_in
+
+        return data

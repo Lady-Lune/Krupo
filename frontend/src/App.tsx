@@ -3,15 +3,34 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
-import { BrowserRouter , Routes , Route, Navigate } from 'react-router-dom';
+import { BrowserRouter , Routes , Route, useNavigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import UserProfile from './components/UserProfile';
+import { ACCESS_TOKEN } from './constants';
+import api from '@/api';
+import { useEffect } from 'react';
 
 
 function Logout() {
-  return (
-    <Navigate to="/login" />
-  ) 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const performLogout = async () => {
+      try {
+        await api.post("/api/logout/");
+      } catch (error) {
+        console.error("Logout failed:", error);
+      } finally {
+        // Only remove auth-related items
+        localStorage.removeItem(ACCESS_TOKEN);
+        navigate("/login");
+      }
+    };
+
+    performLogout();
+  }, [navigate]);
+
+  return null; // Return null while logout processes
 }
 
 function RegisterAndLogout() {
@@ -42,3 +61,5 @@ export default function App() {
     </BrowserRouter>
   );
 }
+
+
