@@ -1,7 +1,41 @@
-env
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+*.pot
 db.sqlite3
-media
-BIN - deleted frontend
-frontend/node_modules
-# ...
-.vscode
+media/
+static/
+
+# Virtual Environment
+env/
+venv/
+ENV/
+
+# React/Node
+frontend/node_modules/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# System Files
+.DS_Store
+Thumbs.db
+
+BIN - deleted frontend/

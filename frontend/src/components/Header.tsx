@@ -2,18 +2,17 @@ import { Avatar, Container, Image } from "@mantine/core";
 import { User } from "../../types/types";
 import MainTabs from "./MainTabs";
 import { useEffect } from "react";
+import { USER } from '@/constants';
 
 interface HeaderProps{
     user?:User
 }
 
 const Header = (props:HeaderProps) => {
-    // useEffect( () => {
-    // const getRespose = async () => {
-    //     const response = await api.get('/api/helpers')
-    //     console.log(response.data)
-    // }
-    // },[])   
+    const user_id = localStorage.getItem(USER)
+    const profile_url = 'api/users/' + user_id + '/'
+
+    async function 
     return(
         <>
         <Container 
