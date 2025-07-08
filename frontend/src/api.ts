@@ -7,7 +7,8 @@ import { ACCESS_TOKEN } from "./constants";
 // we keep it as a n environmental variable to make it easier to load and cahge the URL
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL //? import.meta.env.VITE_API_URL : apiUrl,
+  baseURL: import.meta.env.VITE_API_URL, //? import.meta.env.VITE_API_URL : apiUrl,
+  //withCredentials: true // to allow setting cookies by the backend
 });
 //above is an api object
 //we adding an interceptor that adds relevant headers 

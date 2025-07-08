@@ -16,6 +16,7 @@ import GiftExchange from '@/pages/GiftExchange'
 import HelperDirectory from '@/pages/HelperDirectory'
 import { FormContext } from './FormContext'
 import { useForm } from "@mantine/form"
+import Test from './TestPage'
 
 
 
@@ -122,6 +123,7 @@ const MainTabs = () => {
             value='gift-xchng'
             // children={<Page formtype='gift-xchng' />}
             children={<GiftExchange />}
+            // children={<Test />}
             // children={<UserProfile />}
             // children={<CreatePost />}
             // opened={opened} open={open} close={close}

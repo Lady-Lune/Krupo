@@ -64,11 +64,12 @@ def reply_sub(sender, instance, **kwargs):
 #-------------------------------------------------------------------------------#
 
 @receiver(user_logged_in)
-def login_reciever(sender, **kwargs):
+def login_reciever(sender, request, user, **kwargs):
     sentby = str(sender)
     print (
         '\n', 'LOGIN' ,'\n',
         "sent by: ", sentby, '\n',
+        "user: ", user
     )
 
 @receiver(user_logged_out)
