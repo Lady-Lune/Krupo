@@ -5,7 +5,7 @@ import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import { BrowserRouter , Routes , Route, useNavigate } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
-import UserProfile from './components/UserProfile';
+import UserProfile from './popups/UserProfile';
 import { ACCESS_TOKEN } from './constants';
 import api from '@/api';
 import { useEffect } from 'react';

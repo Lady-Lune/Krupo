@@ -1,0 +1,45 @@
+/* UserProfileEdit.module.css
+ * CSS Module for the UserProfileEdit component
+ * Uses Mantine's CSS variables for consistency with the theme
+ */
+
+/* Main form container styling */
+.editForm {
+    padding: 20px;
+}
+
+/* Individual section container (Profile Picture, Basic Info, Social Media, Password) */
+.section {
+    margin-bottom: 20px;
+}
+
+/* Section title styling - uses Mantine's design tokens for consistent typography */
+.sectionTitle {
+    font-size: var(--mantine-font-size-sm);
+    color: var(--mantine-color-gray-7);
+    margin-bottom: 10px;
+}
+
+/* Spacing for grouped form inputs (e.g., First Name + Last Name) */
+.inputGroup {
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Social media icon + input field alignment */
+.socialGroup {
+    align-items: center;
+    gap: 10px;
+}
+
+/* Social media icons styling */
+.icon {
+    color: var(--mantine-color-gray-6);
+}
+
+/* Form buttons container styling */
+.actionGroup {
+    justify-content: flex-end;
+    margin-top: 20px;
+    gap: 10px;
+}

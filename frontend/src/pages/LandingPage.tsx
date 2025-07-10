@@ -1,5 +1,8 @@
-import CreateButton from "@/components/CreateButton";
 import Header from "@/components/Header";
+import api from "@/api";
+import { useState , useEffect } from "react";
+import { Profile } from "../../types/model_types";
+import { USER } from "@/constants";
 
 // export function fixImageURL(baseUrl:String, testUrl:String, folder:String) {
 //     const escapedBase = baseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -15,8 +18,37 @@ import Header from "@/components/Header";
 //     }
 // }
 
+export const getUserInfo = async (userId: string) => { //| number
+//   console.log(userId);
+  try {
+    const response = await api.get(`/api/profile/${userId}/`);
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
 export default function LandingPage(){
+    const [currentUser, setCurrentUser] = useState<Profile | undefined>(undefined);
+    useEffect(() => {
+    const fetchUser = async () => {
+        const user_id = localStorage.getItem(USER);
+        if (user_id) {
+            try {
+                const userData = await getUserInfo(user_id);
+                setCurrentUser(userData);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    fetchUser();
+    }, []);
+
     return <>
-    <Header />
+    <Header user={currentUser} />
     </>
 }

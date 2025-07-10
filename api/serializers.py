@@ -90,6 +90,8 @@ class PostsSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         return instance
     
+    
+    
 # -------------------------------------------------------------------------------#
 
 class GiftsSerializer(serializers.ModelSerializer):

@@ -1,6 +1,6 @@
 import { colors } from '@/theme'
 import { Button, Card , Group, Image , Space, Stack , Text} from '@mantine/core'
-import { HelperCardProps } from '../../types/types'
+import { HelperCardProps } from '../../types/model_types'
 import { useForm } from "@mantine/form"
 
 // User.username

@@ -1,7 +1,7 @@
 import api from "@/api"
 import { Grid , Card } from "@mantine/core"
 import { useEffect, useState } from "react"
-import { PostorGift } from "../../types/types"
+import { PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
 import { colors } from "@/theme"
 import { helpersresponse, response } from "./SampleResponse"

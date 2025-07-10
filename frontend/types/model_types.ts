@@ -69,10 +69,9 @@ export interface EngagementMetric {
     giftreq_count:number;
 }
 
-export interface UserProfile {
+export interface Profile {
     id:number;
     username:string;
-    password:string;
     profile_pic:string;
     location:string;
     email:string;

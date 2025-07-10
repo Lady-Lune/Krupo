@@ -1,5 +1,5 @@
 import { createTheme } from '@mantine/core';
-import { ThemeColors } from '../types/types';
+import { ThemeColors } from '../types/model_types';
 
 export const colors:ThemeColors = {
   "Pale-Yellow"        :'hsl(25, 58%, 79%)',

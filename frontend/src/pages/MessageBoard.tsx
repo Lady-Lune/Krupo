@@ -1,7 +1,7 @@
 import api from "@/api"
 import { Grid } from "@mantine/core"
 import { useEffect, useState } from "react"
-import { PostorGift } from "../../types/types"
+import { PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
 import { colors } from "@/theme"
 import { response } from "./SampleResponse"
@@ -12,7 +12,7 @@ const MessageBoard = () => {
         useEffect( () => {
             const getRespose = async () => {
                 const response = await api.get('/api/posts')
-                console.log(response.data)
+                // console.log(response.data)
                 setPosts(response.data)
             }
             getRespose(); 

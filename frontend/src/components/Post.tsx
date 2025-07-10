@@ -1,7 +1,7 @@
 import { Avatar, Card, Image, Text, AspectRatio, Pill, PillGroup } from "@mantine/core"
 import { colors } from "@/theme"
 import PostHead from "./PostHead"
-import { PostProps } from "../../types/types"
+import { PostProps } from "../../types/model_types"
 
 // username
 // profile_pic

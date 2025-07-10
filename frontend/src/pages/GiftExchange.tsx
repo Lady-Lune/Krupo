@@ -1,7 +1,7 @@
 import api from "@/api"
 import { Grid } from "@mantine/core"
 import { useEffect, useState } from "react"
-import { PostorGift } from "../../types/types"
+import { PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
 import CreateButton from "../components/CreateButton"
 import { colors } from "@/theme"

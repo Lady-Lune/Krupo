@@ -1,37 +1,52 @@
 import { Avatar, Container, Image } from "@mantine/core";
-import { User } from "../../types/types";
+import { Profile } from "../../types/model_types";
 import MainTabs from "./MainTabs";
-import { useEffect } from "react";
-import { USER } from '@/constants';
+import classes from './styles/Header.module.css';
+import UserProfile from "../popups/UserProfile";
+import { useDisclosure } from "@mantine/hooks";
 
 interface HeaderProps{
-    user?:User
+    user?:Profile
 }
 
-const Header = (props:HeaderProps) => {
-    const user_id = localStorage.getItem(USER)
-    const profile_url = 'api/users/' + user_id + '/'
+const Header = ({user: user}:HeaderProps) => {
+    const [profileOpened, { open: openProfile, close: closeProfile }] = useDisclosure(false);
+
+    const handleAvatarClick = () => {
+        if (user) {
+            openProfile();
+            // console.log("Avatar Clicked")
+            // console.log(user)
+        }
+    };
 
     return(
         <>
-        <Container 
-        style={{ 
-            height:150,
-            alignContent:"space-around"
-            }}>
+        <Container className={classes.header}>
             <Image 
-            src="src\assets\ComboLogo_-_Color_-_B-removebg-preview.svg"
-            fit="scale-down"
-            height={100}
+                src="src\assets\ComboLogo_-_Color_-_B-removebg-preview.svg"
+                fit="scale-down"
+                className={classes.logo}
             />
+
             <Avatar 
-            radius="xl"
-            pos="absolute"
-            right={30}
-            top={20}
-            src={props.user? props.user.profile_pic:null} />
+                className={classes.avatar}
+                src={user?.profile_pic} 
+                alt={user?.first_name ? `${user.first_name}'s avatar` : 'User avatar'}
+                onClick={handleAvatarClick}
+                style={{ cursor: 'pointer' }}
+            />
         </Container>
+
         <MainTabs />
+
+        {user && (
+                <UserProfile 
+                    opened={profileOpened}
+                    onClose={closeProfile}
+                    user={user}
+                />
+            )}
         </>
     )
 };

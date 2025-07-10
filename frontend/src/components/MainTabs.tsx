@@ -6,17 +6,15 @@ import HelperCard from './HelperCard'
 // import MessageBoard from '@/pages/MessageBoard'
 import CreatePost from './CreatePost'
 import HelperApplication from './HelperApplication'
-import UserProfile from './UserProfile'
+import UserProfile from '../popups/UserProfile'
 import CreateButton from './CreateButton'
 import MessageBoard from '../pages/MessageBoard'
-import { PostorGift } from '../../types/types'
+import { PostorGift } from '../../types/model_types'
 import { useState } from 'react'
-import Page from './Page'
 import GiftExchange from '@/pages/GiftExchange'
 import HelperDirectory from '@/pages/HelperDirectory'
 import { FormContext } from './FormContext'
 import { useForm } from "@mantine/form"
-import Test from './TestPage'
 
 
 
