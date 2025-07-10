@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from api.views import  AllUsersView, testview, CustomTokenObtainPairView, LogoutView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView 
+from django.conf import settings
+from django.conf.urls.static import static
 # CreateUserView
 
 
@@ -33,5 +35,5 @@ urlpatterns = [
     # path("accounts/", include("django.contrib.auth.urls"))
     path("api/token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/logout/", LogoutView.as_view(), name="logout"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
  

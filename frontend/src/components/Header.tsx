@@ -12,7 +12,6 @@ const Header = (props:HeaderProps) => {
     const user_id = localStorage.getItem(USER)
     const profile_url = 'api/users/' + user_id + '/'
 
-    async function 
     return(
         <>
         <Container 

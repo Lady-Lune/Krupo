@@ -26,20 +26,32 @@ const MessageBoard = () => {
         posts.map(
             (post, index) => {
                 return (
-                <Grid.Col 
-                    key={`${post.id}-${index}`}
-                    span={{
-                        base:12,
-                        xs:10,
-                        sm:8,
-                        md:6,
-                        lg:4,
-                        xl:3,
-                    }}
-                >
-                    <Post buttonbehaviour='open profile' posttype="ask" username={post.user? post.user.username:"null"} {...post} />
-                </Grid.Col>
-                    )
+                    <Grid.Col 
+                        key={`${post.id}-${index}`}
+                        span={{
+                            base: 12,
+                            xs: 10,
+                            sm: 8,
+                            md: 6,
+                            lg: 4,
+                            xl: 3,
+                        }}
+                    >
+                        <Post 
+                            posttype="ask"
+                            // user_id={post.user.id}
+                            buttonbehaviour="open profile" //change later
+                            username={post.user?.username || "NONE"}
+                            posted_date={post.posted_date}
+                            posted_time={post.posted_time}
+                            title={post.title}
+                            description={post.description}
+                            image={post.image}
+                            tags={post.tags}
+                            replies={post.replies}
+                        />
+                    </Grid.Col>
+                )
             }
         )
     }

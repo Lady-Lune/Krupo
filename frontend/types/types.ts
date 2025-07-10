@@ -40,7 +40,7 @@ export interface PostProps {
     image?: string | null;
     tags: string;
     replies?: string[];
-    buttonbehaviour:string;
+    buttonbehaviour:"send post" | "open profile";
     posttype:string;
 }
 

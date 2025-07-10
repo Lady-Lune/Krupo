@@ -11,9 +11,8 @@ import { PostProps } from "../../types/types"
 // tags
 
 
-
-
 const Post = ({username, posted_date, posted_time, title, description, image, tags, replies, buttonbehaviour, posttype}:PostProps) => {
+    
     return(
         <>
         <Card
@@ -40,7 +39,7 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
             <Card.Section p="10 15">
                 <AspectRatio ratio={posttype=="ask"? 1080/720:720/720}>
                     <Image 
-                        src={image} //TODO:change later
+                        src={image} //TODO:change later ? fixImageURL(import.meta.env.BASE_URL, image,"post_images"):image
                         bd="1px solid black"
                         //"src\assets\Logo - Color - W (2).png"
                     />
