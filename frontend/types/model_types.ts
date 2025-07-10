@@ -1,4 +1,4 @@
-import HelperApplication from '../src/components/HelperApplication';
+import HelperApplication from '../src/popups/HelperApplication';
 export interface ThemeColors {
     [key:string]:string;
 }

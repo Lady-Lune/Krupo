@@ -4,8 +4,8 @@ import Post from './Post'
 import { useDisclosure } from '@mantine/hooks'
 import HelperCard from './HelperCard'
 // import MessageBoard from '@/pages/MessageBoard'
-import CreatePost from './CreatePost'
-import HelperApplication from './HelperApplication'
+import CreatePost from '../popups/CreatePost'
+import HelperApplication from '../popups/HelperApplication'
 import UserProfile from '../popups/UserProfile'
 import CreateButton from './CreateButton'
 import MessageBoard from '../pages/MessageBoard'
@@ -13,7 +13,6 @@ import { PostorGift } from '../../types/model_types'
 import { useState } from 'react'
 import GiftExchange from '@/pages/GiftExchange'
 import HelperDirectory from '@/pages/HelperDirectory'
-import { FormContext } from './FormContext'
 import { useForm } from "@mantine/form"
 
 
@@ -158,7 +157,7 @@ const MainTabs = () => {
             </Button>
         </Affix>
         </Popover.Target>
-        <Popover.Dropdown bd={0} bg={colors["Dark Skintone-d2"]} >
+        <Popover.Dropdown bd={0} bg={colors["Dark Skintone-d2"]}>
                 {curpage=="helpers"? <HelperApplication />:<CreatePost type={curpage}/>}
         </Popover.Dropdown>
     </Popover>

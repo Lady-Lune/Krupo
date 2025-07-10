@@ -3,6 +3,7 @@ import { Button, Card , Group, Image , Space, Stack , Text ,TextInput , Textarea
 import { useDisclosure } from '@mantine/hooks';
 import { useForm , hasLength} from "@mantine/form"
 import api from '@/api';
+import { useUser } from '@/components/UserInfoContext';
 
 // User.username
 // User.location
@@ -10,6 +11,10 @@ import api from '@/api';
 // HelperRole.serv_desc
 
 export default function HelperApplication() {
+
+    const { currentUser} = useUser(); // Access context data here
+
+    
     const form = useForm({
     initialValues: {
             serv_type:'',
@@ -69,8 +74,14 @@ export default function HelperApplication() {
                     w={"30%"}
                 /> */}
                 <Stack gap={3}  > {/*pos="absolute" right={10} w={"60%"} w={"100%"} */}
-                    <Text size='sm' p="0 3">Username</Text> {/*size='md' w={265}*/}
-                    <Text size='sm' p="0 3">Location</Text> {/*size='sm' w={265}*/}
+                    <Text size='sm' p="0 3">
+                        {currentUser? currentUser?.username:"------"}    
+                    </Text> {/*size='md' w={265}*/}
+                    
+                    <Text size='sm' p="0 3">
+                        {currentUser? currentUser?.location:"------"} 
+                    </Text> {/*size='sm' w={265}*/}
+
                     <TextInput 
                         size='sm' 
                         placeholder='Job'

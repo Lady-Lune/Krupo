@@ -3,7 +3,7 @@ import api from "@/api";
 import { useState , useEffect } from "react";
 import { Profile } from "../../types/model_types";
 import { USER } from "@/constants";
-
+import { useUser } from "@/components/UserInfoContext";
 // export function fixImageURL(baseUrl:String, testUrl:String, folder:String) {
 //     const escapedBase = baseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 //     const extensions = 'jpe?g|png|gif|bmp|svg|webp|tiff?';
@@ -18,37 +18,44 @@ import { USER } from "@/constants";
 //     }
 // }
 
-export const getUserInfo = async (userId: string) => { //| number
-//   console.log(userId);
-  try {
-    const response = await api.get(`/api/profile/${userId}/`);
-    // console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
+// export const getUserInfo = async (userId: string) => { //| number
+// //   console.log(userId);
+//   try {
+//     const response = await api.get(`/api/profile/${userId}/`);
+//     // console.log(response.data);
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
 
 export default function LandingPage(){
-    const [currentUser, setCurrentUser] = useState<Profile | undefined>(undefined);
-    useEffect(() => {
-    const fetchUser = async () => {
-        const user_id = localStorage.getItem(USER);
-        if (user_id) {
-            try {
-                const userData = await getUserInfo(user_id);
-                setCurrentUser(userData);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    };
+    // const [currentUser, setCurrentUser] = useState<Profile | undefined>(undefined);
+    // useEffect(() => {
+    // const fetchUser = async () => {
+    //     const user_id = localStorage.getItem(USER);
+    //     if (user_id) {
+    //         try {
+    //             const userData = await getUserInfo(user_id);
+    //             setCurrentUser(userData);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     }
+    // };
 
-    fetchUser();
-    }, []);
+    // fetchUser();
+    // }, []);
+
+    const { currentUser, isLoading } = useUser(); // Access context data here
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+    
 
     return <>
-    <Header user={currentUser} />
+    <Header />
     </>
 }

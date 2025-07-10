@@ -9,6 +9,7 @@ import UserProfile from './popups/UserProfile';
 import { ACCESS_TOKEN } from './constants';
 import api from '@/api';
 import { useEffect } from 'react';
+import { UserInfoProvider } from './components/UserInfoContext';
 
 
 function Logout() {
@@ -47,7 +48,9 @@ export default function App() {
           path="/home"
           element={
             <ProtectedRoute>
-              <LandingPage />
+              <UserInfoProvider >
+                <LandingPage />
+              </UserInfoProvider>
             </ProtectedRoute>
           }
         />
@@ -56,7 +59,7 @@ export default function App() {
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<LandingPage />} />
-        <Route path="/profile" element={<UserProfile />} />
+        {/* <Route path="/profile" element={<UserProfile />} /> */}
       </Routes> 
     </BrowserRouter>
   );
