@@ -3,7 +3,6 @@ import { Grid } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
-import { colors } from "@/theme"
 import { response } from "./SampleResponse"
 
 
@@ -12,19 +11,20 @@ const MessageBoard = () => {
         useEffect( () => {
             const getRespose = async () => {
                 const response = await api.get('/api/posts')
-                // console.log(response.data)
+                console.log(response.data)
                 setPosts(response.data)
             }
-            getRespose(); 
+            getRespose();
     },[])   
 
 
     return (
     <>
-    <Grid  p="md" gutter="xl" columns={12} justify="center"> {/*bg={colors["Teal-l1"]}*/}
+    <Grid  p="md" gutter="xl" columns={12} justify="center"> 
         {
         posts.map(
             (post, index) => {
+                const post_user = post.user;
                 return (
                     <Grid.Col 
                         key={`${post.id}-${index}`}
@@ -38,17 +38,8 @@ const MessageBoard = () => {
                         }}
                     >
                         <Post 
-                            posttype="ask"
-                            // user_id={post.user.id}
-                            buttonbehaviour="open profile" //change later
-                            username={post.user?.username || "NONE"}
-                            posted_date={post.posted_date}
-                            posted_time={post.posted_time}
-                            title={post.title}
-                            description={post.description}
-                            image={post.image}
-                            tags={post.tags}
-                            replies={post.replies}
+                            post_or_gift="post"
+                            post={post}
                         />
                     </Grid.Col>
                 )
@@ -62,29 +53,3 @@ const MessageBoard = () => {
 }
 
 export default MessageBoard;
-
-        // <Button onClick={getPosts} > Get Post </Button>
-        // <Post behaviour='open profile' username={post.user? post.user.username:"null" } {...post} />
-
-        // <Grid bg={colors["Teal-l1"]} p="md"  gutter="xl" justify="center">
-        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
-        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
-        //             <Space h={450} />
-        //         </Box>
-        //     </Grid.Col>
-        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
-        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
-        //             <Space h={450} />
-        //         </Box>
-        //     </Grid.Col>
-        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
-        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
-        //             <Space h={450} />
-        //         </Box>
-        //     </Grid.Col>
-        //     <Grid.Col span={5.75}> {/*bd="1px solid red"*/}
-        //         <Box bd="1px solid black" bg={colors["Light Skintone-l1"]}>
-        //             <Space h={450} />
-        //         </Box>
-        //     </Grid.Col>
-        // </Grid>

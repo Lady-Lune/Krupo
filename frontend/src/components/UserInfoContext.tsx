@@ -11,11 +11,7 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
-export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
-    const [currentUser, setCurrentUser] = useState<Profile | undefined>(undefined);
-    const [isLoading, setIsLoading] = useState(true);
-
-    const getUserInfo = async (userId: string) => { //| number
+export const getUserInfo = async (userId: string) => { //| number
     //   console.log(userId);
         try {
             const response = await api.get(`/api/profile/${userId}/`);
@@ -26,6 +22,10 @@ export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
             throw error;
         }
     };
+
+export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
+    const [currentUser, setCurrentUser] = useState<Profile | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {

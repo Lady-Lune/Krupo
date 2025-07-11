@@ -6,7 +6,6 @@ export interface ThemeColors {
 export interface User {
     id:number;
     username:string;
-    // password:string;
     profile_pic:string;
     location:string;
     email:string;
@@ -28,20 +27,7 @@ export interface PostorGift {
     description:string;
     image:string | null;
     tags:string;
-    replies?:string[]; //change to Reply[] maybe
-}
-
-export interface PostProps {
-    username: string;
-    posted_date: string;
-    posted_time: string;
-    title: string;
-    description: string;
-    image?: string | null;
-    tags: string;
-    replies?: string[];
-    buttonbehaviour:"send post" | "open profile";
-    posttype:string;
+    replies?:Reply[]; //change to Reply[] maybe
 }
 
 export interface Reply {
@@ -53,7 +39,7 @@ export interface Reply {
     content:string;
 }
 
-export interface HelperCard{
+export interface HelperCardType{
     id:number;
     user:User;
     serv_type:string;
@@ -86,16 +72,6 @@ export interface Profile {
     post_count:number;
     reply_count:number;
     giftreq_count:number;
-    helper_role:HelperCard[]
+    helper_role:HelperCardType[]
 }
 
-export interface HelperCardProps{
-    username:string;
-    location:string;
-    serv_type:string;
-    serv_desc:string;
-    // username
-    // User.location
-// HelperRole.serv_type
-// HelperRole.serv_desc
-}

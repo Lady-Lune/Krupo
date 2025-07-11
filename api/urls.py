@@ -1,5 +1,5 @@
 from django.urls import path, include
-from api.views import  PostsViewSet , GiftViewSet , ReplyViewset , HelperRoleViewset, UserViewSet,UserProfileView, testview
+from api.views import  PostsViewSet , GiftViewSet , ReplyViewset , HelperRoleViewset, UserViewSet,UserProfileView, increment_recommendation
 # PostsView, CreatePostView , DeletePostView, GiftsView, CreateGiftReqView, DeleteGiftReqView, CreateReplyView , SingleUserView, UserProfileView,
 from rest_framework.routers import DefaultRouter
 
@@ -15,7 +15,7 @@ router.register("profile", UserProfileView, basename="userprofile")
 
 
 urlpatterns = [
-    path("test/<int:pk>", testview, name="test"),  #test
+     path("recommend/<int:pk>/", increment_recommendation, name="recommend"),
     # path("user/<int:pk>", SingleUserView.as_view(), name="user_info"),  #shows the user info
     # path("user/<int:pk>/profile", UserProfileView.as_view(), name="userprofile"),  #view update adn delete users
     

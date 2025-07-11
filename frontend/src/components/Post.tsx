@@ -1,30 +1,53 @@
-import { Avatar, Card, Image, Text, AspectRatio, Pill, PillGroup } from "@mantine/core"
+import { Avatar, Card, Image, Text, AspectRatio, Pill, PillGroup, Accordion, Box, Stack, TextInput } from "@mantine/core"
 import { colors } from "@/theme"
 import PostHead from "./PostHead"
-import { PostProps } from "../../types/model_types"
+import { PostorGift, Profile } from "../../types/model_types";
+import { getUserInfo } from "./UserInfoContext";
+import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import UserProfile from "@/popups/UserProfile";
+import ReplySection from "./ReplySection";
 
-// username
-// profile_pic
-// posted_date
-// image
-// decription
-// tags
+export interface PostProps {
+
+    post: PostorGift
+    post_or_gift:"post" | "gift";
+
+}
 
 
-const Post = ({username, posted_date, posted_time, title, description, image, tags, replies, buttonbehaviour, posttype}:PostProps) => {
+
+const Post = ({post, post_or_gift}:PostProps) => {
+
+    const [profileOpened, { open: openProfile, close: closeProfile }] = useDisclosure(false);
+    const [postUserProfile, setPostUserProfile] = useState<Profile | undefined>();
+
+
+    const handleClick = async () => {
+        console.log(post_or_gift)
+        const postuser_profile = await getUserInfo(post.user?.id.toString())
+        setPostUserProfile(postuser_profile)
+        if (postuser_profile) {
+            openProfile();
+        }
+    }
     
     return(
         <>
         <Card
             display="flex"
-            // w={{
-            //     base:300,
-            //     md:250,
-            // }}
             bg={colors["Pale-Yellow"]}
         >
 
-            <PostHead username={username} profile_pic="" posted_date={posted_date} buttonbehaviour={buttonbehaviour}/> {/*posted_date} />*/} {/* User.username, User.profile_pic, Post.posted_date*/}
+            <PostHead 
+                username={post.user?.username} 
+                profile_pic={post.user?.profile_pic} 
+                posted_date={post.posted_date}
+                action={{
+                    type: 'profile',
+                    onClick: handleClick
+                }}
+            />
 
             <Card.Section p="5 15">
                 <Text
@@ -32,16 +55,15 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
                     size="md"
                     lh={1.25}
                 >
-                    {title}
+                    {post.title}
                 </Text>
             </Card.Section>
 
-            <Card.Section p="10 15">
-                <AspectRatio ratio={posttype=="ask"? 1080/720:720/720}>
+            <Card.Section p="10 15" display={post.image? "initial":"none"}>
+                <AspectRatio ratio={post_or_gift=="post"? 1080/720:720/720}>
                     <Image 
-                        src={image} //TODO:change later ? fixImageURL(import.meta.env.BASE_URL, image,"post_images"):image
+                        src={post.image}
                         bd="1px solid black"
-                        //"src\assets\Logo - Color - W (2).png"
                     />
                 </AspectRatio>
             </Card.Section>
@@ -52,7 +74,7 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
                     fz={13}
                     lh={1.25}
                 >
-                    {description}
+                    {post.description}
                 </Text>
             </Card.Section>
 
@@ -63,11 +85,24 @@ const Post = ({username, posted_date, posted_time, title, description, image, ta
                     ff="Averia Gruesa Libre"
                     fz={13}
                 >
-                    #{tags}
+                    #{post.tags}
                 </Pill>
                 </PillGroup>
             </Card.Section>
+
+            <Card.Section p="5 15">
+                <ReplySection post={post}/>
+            </Card.Section>
+
         </Card>
+
+        {postUserProfile && (
+            <UserProfile 
+                opened={profileOpened}
+                onClose={closeProfile}
+                user={postUserProfile}
+            />
+        )}
         </>
     )
     

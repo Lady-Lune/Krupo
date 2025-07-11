@@ -1,7 +1,7 @@
 import api from "@/api"
 import { Grid , Card } from "@mantine/core"
 import { useEffect, useState } from "react"
-import { PostorGift } from "../../types/model_types"
+import { HelperCardType, PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
 import { colors } from "@/theme"
 import { helpersresponse, response } from "./SampleResponse"
@@ -11,7 +11,7 @@ import HelperCard from "@/components/HelperCard"
 
 
 const HelperDirectory = () => {
-        const [helpers, setHelpers] = useState<any[]>(helpersresponse);
+        const [helpers, setHelpers] = useState<HelperCardType[]>(helpersresponse);
         // const getPosts = async
         useEffect( () => {
             const getRespose = async () => {
@@ -19,7 +19,7 @@ const HelperDirectory = () => {
                 console.log(response.data)
                 setHelpers(response.data)
             }
-            // getRespose(); //Uncomment to get the data form backend
+            getRespose(); //Uncomment to get the data form backend
     },[])   
 
     return (
@@ -40,7 +40,12 @@ const HelperDirectory = () => {
                         xl:3,
                     }}   
                 >
-                    <HelperCard username={helper.user.username} location={helper.user.location} {...helper}/>
+                    <HelperCard 
+                        user={helper.user}
+                        helper_id={helper.id}
+                        serv_type={helper.serv_type}
+                        serv_desc={helper.serv_desc}
+                    />
                 </Grid.Col>
                     )
             }

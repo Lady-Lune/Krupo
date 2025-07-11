@@ -62,11 +62,28 @@ class UserSerializer(serializers.ModelSerializer):
 
 # Basic serializers to update and refine later
 # Really Happy with how these work
+
+# -------------------------------------------------------------------------------#
+
+class RepliesSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Replies
+        fields = ["id", "user", "post", "posted_date", "posted_time", "content"]
+
+    def create(self, validated_data):
+        request = self.context["request"]
+        user = request.user
+        validated_data["user"] = user
+        reply = Replies.objects.create(**validated_data)
+        return reply
+
 # -------------------------------------------------------------------------------#
 
 class PostsSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
-    replies = serializers.StringRelatedField(many=True, read_only=True)
+    replies = RepliesSerializer(many=True, read_only=True)
 
     class Meta:
         model = Posts
@@ -120,25 +137,6 @@ class GiftsSerializer(serializers.ModelSerializer):
 # -------------------------------------------------------------------------------#
 
 
-
-# -------------------------------------------------------------------------------#
-
-class RepliesSerializer(serializers.ModelSerializer):
-    user = UserSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = Replies
-        fields = ["id", "user", "post", "posted_date", "posted_time", "content"]
-
-    def create(self, validated_data):
-        request = self.context["request"]
-        user = request.user
-        validated_data["user"] = user
-        reply = Replies.objects.create(**validated_data)
-        return reply
-
-# -------------------------------------------------------------------------------#
-
 class HelperRoleSerializer(
     serializers.ModelSerializer
 ):  # check if the user has either fb account/ig account or email before creating
@@ -146,7 +144,7 @@ class HelperRoleSerializer(
 
     class Meta:
         model = HelperRole
-        fields = ["id", "user", "serv_type", "serv_desc"]
+        fields = ["id", "user", "serv_type", "serv_desc", "recommendations"]
 
     def create(self, validated_data):
         request = self.context["request"]
@@ -154,6 +152,9 @@ class HelperRoleSerializer(
         validated_data["user"] = user
         helper = HelperRole.objects.create(**validated_data)
         return helper
+    
+    def update(self, instance, validated_data):
+        return instance
 
 # -------------------------------------------------------------------------------#
 
@@ -161,6 +162,7 @@ class EngagementMetricsSerializer(
     serializers.ModelSerializer
 ):  # Engagement will only be used with viewing a users profile
     user = UserSerializer(many=False)
+    recommendations = serializers.ReadOnlyField(source='helper_role.recommendations')
 
     class Meta:
         model = EngagementMetrics
@@ -181,11 +183,11 @@ class EngagementMetricsSerializer(
 
 class UserProfileSerializer(serializers.ModelSerializer):  
     reachout_count = serializers.ReadOnlyField(source='engagement_metrics.reachout_count')
-    recommendations = serializers.ReadOnlyField(source='engagement_metrics.recommendations')
+    recommendations = serializers.ReadOnlyField(source='helper_role.recommendations')
     post_count = serializers.ReadOnlyField(source='engagement_metrics.post_count')
     reply_count = serializers.ReadOnlyField(source='engagement_metrics.reply_count')
     giftreq_count = serializers.ReadOnlyField(source='engagement_metrics.giftreq_count')
-    helper_role = HelperRoleSerializer
+    helper_role = HelperRoleSerializer(many=True, read_only=True)
 
     class Meta:
         model = MyUser

@@ -87,6 +87,7 @@ class HelperRole(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, editable=False, on_delete=models.CASCADE, related_name="helper_role")
     serv_type = models.CharField(max_length=100)
     serv_desc = models.CharField(max_length=300)
+    recommendations = models.IntegerField(default=0)
 
     def __str__(self):
         return (str(self.user)+" : "+self.serv_type[:10])
@@ -94,7 +95,6 @@ class HelperRole(models.Model):
 class EngagementMetrics(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, editable=False, on_delete=models.CASCADE, null=True, related_name="engagement_metrics")
     reachout_count = models.IntegerField(default=0) #need logic for this
-    recommendations = models.IntegerField(default=0) #need logic for this
     post_count = models.IntegerField(default=0)
     reply_count = models.IntegerField(default=0)
     giftreq_count = models.IntegerField(default=0)

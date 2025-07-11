@@ -16,35 +16,38 @@ const GiftExchange = () => {
         useEffect( () => {
             const getRespose = async () => {
                 const response = await api.get('/api/gifts')
-                console.log(response.data)
+                // console.log(response.data)
                 setGifts(response.data)
             }
-            // getRespose(); //Uncomment to get the data form backend
+            getRespose(); 
     },[])   
 
 
 
     return (
     <>
-    <Grid p="md" gutter="xl" columns={12} justify="center"> {/*bg={colors["Teal-l1"]}*/}
+    <Grid p="md" gutter="xl" columns={12} justify="center"> 
         {
         gifts.map(
             (post,index) => {
                 return (
-                <Grid.Col 
-                    key={`${post.id}-${index}`}
-                    span={{
-                        base:12,
-                        xs:10,
-                        sm:8,
-                        md:6,
-                        lg:4,
-                        xl:3,
-                    }}   
-                >
-                    <Post buttonbehaviour='open profile' posttype="gift" username={post.user? post.user.username:"null"} {...post} />
-                </Grid.Col>
-                    )
+                    <Grid.Col 
+                        key={`${post.id}-${index}`}
+                        span={{
+                            base:12,
+                            xs:10,
+                            sm:8,
+                            md:6,
+                            lg:4,
+                            xl:3,
+                        }}   
+                    >
+                        <Post 
+                            post_or_gift="gift"
+                            post={post}
+                        />
+                    </Grid.Col>
+                )
             }
         )
     }
