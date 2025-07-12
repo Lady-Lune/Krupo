@@ -1,6 +1,5 @@
 from django.urls import path, include
-from api.views import  PostsViewSet , GiftViewSet , ReplyViewset , HelperRoleViewset, UserViewSet,UserProfileView, increment_recommendation
-# PostsView, CreatePostView , DeletePostView, GiftsView, CreateGiftReqView, DeleteGiftReqView, CreateReplyView , SingleUserView, UserProfileView,
+from api.views import  PostsViewSet , GiftViewSet , ReplyViewset , HelperRoleViewset, UserViewSet,UserProfileView, UserProfileUpdateView, increment_recommendation
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
@@ -15,20 +14,8 @@ router.register("profile", UserProfileView, basename="userprofile")
 
 
 urlpatterns = [
-     path("recommend/<int:pk>/", increment_recommendation, name="recommend"),
-    # path("user/<int:pk>", SingleUserView.as_view(), name="user_info"),  #shows the user info
-    # path("user/<int:pk>/profile", UserProfileView.as_view(), name="userprofile"),  #view update adn delete users
-    
-    # path("posts", PostsView.as_view(), name="posts"),
-    # path("post/create", CreatePostView.as_view(), name="create_post"),
-    # path("post/<int:pk>", DeletePostView.as_view(), name="delete_post"),
+    path("recommend/<int:pk>/", increment_recommendation, name="recommend"),
+    path("profile/update/", UserProfileUpdateView.as_view(), name="profile-update"),
     path("", include(router.urls)),
-    
-
-    # path("gifts", GiftsView.as_view(), name="gifts"),
-    # path("gift/create", CreateGiftReqView.as_view(), name="create_gift"),
-    # path("gift/<int:pk>", DeleteGiftReqView.as_view(), name="delete_gift"),
-
-    # path("reply/create", CreateReplyView.as_view(), name="reply"),
 ]
 

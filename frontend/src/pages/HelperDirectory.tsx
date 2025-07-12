@@ -2,25 +2,33 @@ import api from "@/api"
 import { Grid , Card } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { HelperCardType, PostorGift } from "../../types/model_types"
-import Post from "../components/Post"
-import { colors } from "@/theme"
 import { helpersresponse, response } from "./SampleResponse"
 import HelperCard from "@/components/HelperCard"
 
 
 
 
-const HelperDirectory = () => {
+interface HelperDirectoryProps {
+    refreshKey?: number;
+}
+
+const HelperDirectory = ({ refreshKey }: HelperDirectoryProps) => {
         const [helpers, setHelpers] = useState<HelperCardType[]>(helpersresponse);
+        const fetchPosts = async () => {
+            const response = await api.get('/api/helpers/')
+            console.log(response.data)
+            setHelpers(response.data)
+        };
         // const getPosts = async
         useEffect( () => {
-            const getRespose = async () => {
-                const response = await api.get('/api/helpers')
-                console.log(response.data)
-                setHelpers(response.data)
-            }
-            getRespose(); //Uncomment to get the data form backend
-    },[])   
+            fetchPosts();
+            },[refreshKey])   
+
+        const afterDelete = () => {
+        fetchPosts(); // Refetch posts after deletion
+        };
+
+
 
     return (
     <>
@@ -45,6 +53,7 @@ const HelperDirectory = () => {
                         helper_id={helper.id}
                         serv_type={helper.serv_type}
                         serv_desc={helper.serv_desc}
+                        onDelete={afterDelete}
                     />
                 </Grid.Col>
                     )

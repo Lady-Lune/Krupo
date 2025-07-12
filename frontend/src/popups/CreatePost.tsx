@@ -5,25 +5,13 @@ import PostHead from "../components/PostHead"
 import classes from './styles/CreatePost.module.css'
 import api from "@/api"
 import { useUser } from "@/components/UserInfoContext"
-// import { PostProps } from "../../types/types"
 
-// username
-// profile_pic
-// posted_date
-// image
-// decription
-// tags
 
-// interface CreatePostProps {
-//     opened:boolean;
-//     open: () => void;
-//     close: () => void;
-// }
-// {opened, open, close}:CreatePostProps
 type CreatePostType = "community" | "gift-xchng" | "helpers" | string;
 
 interface CreatePostProps {
   type: CreatePostType;
+  onSuccess?: () => void;
 }
 
 interface FormValues {
@@ -33,7 +21,7 @@ interface FormValues {
     tags: string;
 }
 
-const CreatePost = ({type}:CreatePostProps) => {
+const CreatePost = ({type, onSuccess}:CreatePostProps) => {
 
     const { currentUser, isLoading } = useUser(); // Access context data here
 
@@ -71,6 +59,8 @@ const CreatePost = ({type}:CreatePostProps) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            form.reset();
+            onSuccess?.();
             // console.log( type , res.data);
         } catch (error) {
             console.log(error);

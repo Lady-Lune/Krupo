@@ -7,6 +7,7 @@ interface UserContextType {
     currentUser: Profile | undefined;
     setCurrentUser: (user: Profile | undefined) => void;
     isLoading: boolean;
+    refreshUser: () => Promise<void>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -27,25 +28,37 @@ export const UserInfoProvider = ({ children }: { children: ReactNode }) => {
     const [currentUser, setCurrentUser] = useState<Profile | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const user_id = localStorage.getItem(USER);
-            if (user_id) {
-                try {
-                    const userData = await getUserInfo(user_id);
-                    setCurrentUser(userData);
-                } catch (error) {
-                    console.log(error);
-                }
+    const fetchUser = async () => {
+        const user_id = localStorage.getItem(USER);
+        if (user_id) {
+            try {
+                const userData = await getUserInfo(user_id);
+                setCurrentUser(userData);
+            } catch (error) {
+                console.log(error);
             }
-            setIsLoading(false);
-        };
+        }
+        setIsLoading(false);
+    };
 
+    const refreshUser = async () => {
+        const user_id = localStorage.getItem(USER);
+        if (user_id) {
+            try {
+                const userData = await getUserInfo(user_id);
+                setCurrentUser(userData);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    };
+
+    useEffect(() => {
         fetchUser();
     }, []);
 
     return (
-        <UserContext.Provider value={{ currentUser, setCurrentUser, isLoading }}>
+        <UserContext.Provider value={{ currentUser, setCurrentUser, isLoading, refreshUser }}>
             {children}
         </UserContext.Provider>
     );

@@ -4,7 +4,7 @@ from .locationdata import LOCATION_CHOICES
 from .validators import validate_fb_url,validate_ig_url, ImageValidation
 from PIL import Image
 from krupo_test import settings
-import os
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -68,7 +68,7 @@ class Gifts(models.Model):
     title = models.CharField(max_length=75)
     description = models.TextField(max_length = 300)
     tags = models.TextField(blank=True)
-    image = models.ImageField(upload_to='giftreq_images/', blank=True, validators=[ImageValidation])
+    image = models.ImageField(upload_to='giftreq_images/', default='defaults/No_Image.jpg', blank=True, validators=[ImageValidation])
 
     def __str__(self):
         return self.title

@@ -1,26 +1,28 @@
-import { Avatar, Card, Image, Text, AspectRatio, Pill, PillGroup, Accordion, Box, Stack, TextInput } from "@mantine/core"
+import { Avatar, Card, Image, Text, AspectRatio, Pill, PillGroup } from "@mantine/core"
 import { colors } from "@/theme"
 import PostHead from "./PostHead"
 import { PostorGift, Profile } from "../../types/model_types";
-import { getUserInfo } from "./UserInfoContext";
-import { useState } from "react";
+import { getUserInfo, useUser } from "./UserInfoContext";
+import { useState, useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import UserProfile from "@/popups/UserProfile";
 import ReplySection from "./ReplySection";
+import api from "@/api";
 
 export interface PostProps {
-
     post: PostorGift
     post_or_gift:"post" | "gift";
-
+    onDelete?: () => void;
 }
 
 
 
-const Post = ({post, post_or_gift}:PostProps) => {
+const Post = ({post, post_or_gift, onDelete}:PostProps) => {
 
     const [profileOpened, { open: openProfile, close: closeProfile }] = useDisclosure(false);
     const [postUserProfile, setPostUserProfile] = useState<Profile | undefined>();
+    const {currentUser} = useUser();
+    const [displayDelete, setDisplayDelete] = useState<string>("none"); //"none" | "block"
 
 
     const handleClick = async () => {
@@ -29,6 +31,28 @@ const Post = ({post, post_or_gift}:PostProps) => {
         setPostUserProfile(postuser_profile)
         if (postuser_profile) {
             openProfile();
+        }
+    }
+
+    // Check if current user is the owner of the post
+    useEffect(() => {
+        if (currentUser?.id === post.user?.id) {
+            setDisplayDelete("block");
+        } else {
+            setDisplayDelete("none");
+        }
+    }, [currentUser, post.user?.id]);
+
+    const url = post_or_gift=="post"? `/api/posts/${post.id}/`:`/api/gifts/${post.id}/`
+
+    const deletePost = async () => {
+        try {
+            const res = await api.delete(url)
+            console.log('Post deleted successfully:', res)
+            onDelete?.(); // Trigger parent component refresh
+        } catch(error) {
+            console.error('Error deleting post:', error)
+            // You might want to show a toast notification or alert here
         }
     }
     
@@ -45,8 +69,10 @@ const Post = ({post, post_or_gift}:PostProps) => {
                 posted_date={post.posted_date}
                 action={{
                     type: 'profile',
-                    onClick: handleClick
+                    onClick: handleClick,
+                    onDelete:deletePost,
                 }}
+                displayDelete={displayDelete}
             />
 
             <Card.Section p="5 15">

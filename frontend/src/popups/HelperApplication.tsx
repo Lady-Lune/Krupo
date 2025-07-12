@@ -10,7 +10,11 @@ import { useUser } from '@/components/UserInfoContext';
 // HelperRole.serv_type
 // HelperRole.serv_desc
 
-export default function HelperApplication() {
+interface HelperApplicationProps {
+    onSuccess?: () => void;
+}
+
+export default function HelperApplication({ onSuccess }: HelperApplicationProps) {
 
     const { currentUser} = useUser(); // Access context data here
 
@@ -35,6 +39,8 @@ export default function HelperApplication() {
                 serv_type:values.serv_type,
                 serv_desc:values.serv_desc,
             })
+            form.reset();
+            onSuccess?.();
             // redirect /login
         } catch (error) {
             alert(error)
@@ -103,7 +109,7 @@ export default function HelperApplication() {
                         lts={1} 
                         p={3} 
                         fw={1}
-                        onSubmit={handleSubmit}
+                        onClick={handleSubmit}
                     >BECOME HELPER</Button>
                 </Stack>
                 {/* </Group> */}

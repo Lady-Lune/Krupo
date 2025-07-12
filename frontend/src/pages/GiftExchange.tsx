@@ -3,24 +3,31 @@ import { Grid } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
-import CreateButton from "../components/CreateButton"
-import { colors } from "@/theme"
 import { response } from "./SampleResponse"
 
 
 
 
-const GiftExchange = () => {
+interface GiftExchangeProps {
+    refreshKey?: number;
+}
+
+const GiftExchange = ({ refreshKey }: GiftExchangeProps) => {
         const [gifts, setGifts] = useState<PostorGift[]>(response);
-        // const getPosts = async
+        
+        const fetchGifts = async () => {
+            const response = await api.get('/api/gifts')
+            // console.log(response.data)
+            setGifts(response.data)
+        };
+        
         useEffect( () => {
-            const getRespose = async () => {
-                const response = await api.get('/api/gifts')
-                // console.log(response.data)
-                setGifts(response.data)
-            }
-            getRespose(); 
-    },[])   
+            fetchGifts(); 
+    },[refreshKey])   
+
+    const handleGiftDelete = () => {
+        fetchGifts(); // Refetch gifts after deletion
+    };   
 
 
 
@@ -45,6 +52,7 @@ const GiftExchange = () => {
                         <Post 
                             post_or_gift="gift"
                             post={post}
+                            onDelete={handleGiftDelete}
                         />
                     </Grid.Col>
                 )

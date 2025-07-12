@@ -62,10 +62,10 @@ const ReplySection = ({ post }: RepliesProps) => {
 
 
     return (        
-        <Accordion variant="seperated" >
+        <Accordion variant="seperated" chevronPosition="left">
             <Accordion.Item value="replies">
-                <Accordion.Control p={0}>
-                    <Text fz={13}>Replies</Text>
+                <Accordion.Control p={0} >
+                    {/* <Text fz={13}>Replies</Text> */}
                 </Accordion.Control>
                 <Accordion.Panel >
                     <Replies post={post} />

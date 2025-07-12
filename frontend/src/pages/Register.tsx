@@ -23,6 +23,18 @@ import api from '@/api';
 import { districts , LOCATIONS } from '@/locations';
 import { useState } from "react";
 
+interface FormValues {
+      username: string;
+      password: string;
+      location?: string;
+      profile_pic: File | null;
+      first_name?: string;
+      last_name?: string;
+      email?: string;
+      fb_account?: string;
+      ig_account?: string;
+}
+
 const Register = () => {
 
     const [divOptions, setDivOptions] = useState<ComboboxData>(LOCATIONS["Colombo"]);
@@ -69,7 +81,7 @@ const Register = () => {
       username: '',
       password: '',
       location: 'COL0',
-      profile_pic:'',
+      profile_pic:null,
       first_name:'',
       last_name:'',
       email:'',
@@ -91,26 +103,31 @@ const Register = () => {
 
     const handleSubmit = async () => {
         const values = form.getValues();
-        console.log(values)
+        const formData = new FormData();
+
+        formData.append("username" , values.username)
+        formData.append("password" , values.password)
+        values.location && formData.append("location" , values.location)
+        values.first_name && formData.append("first_name" , values.first_name)
+        values.last_name && formData.append("last_name" , values.last_name)
+        values.email && formData.append("email" , values.email)
+        values.fb_account && formData.append("fb_account" , values.fb_account)
+        values.ig_account && formData.append("ig_account" , values.ig_account)
+        if (values.profile_pic && values.profile_pic instanceof File) {
+            formData.append('profile_pic', values.profile_pic);
+        }
+
         try {
-        const res = await api.post("/api/users/", 
-            { 
-                username : values.username, 
-                password : values.password,
-                location : values.location,
-                profile_pic:values.profile_pic,
-                first_name:values.first_name,
-                last_name:values.last_name,
-                email:values.email,
-                fb_account:values.fb_account,
-                ig_account:values.ig_account
-            })
-            window.location.href = "/login";
+            const res = await api.post("/api/users/", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
         } catch (error) {
-            alert(error)
+            console.log(error);
         } finally {
-            // add a finally block
-        };
+            window.location.href = "/login/"
+        }
     }
 
     return(
@@ -297,29 +314,3 @@ const Register = () => {
 };
 
 export default Register;
-
-
-
-
-//   return (
-//     <>
-//       <Stepper active={active} onStepClick={setActive}>
-//         <Stepper.Step label="First step" description="Create an account">
-//           Step 1 content: Create an account
-//         </Stepper.Step>
-        // <Stepper.Step label="Second step" description="Verify email">
-        //   Step 2 content: Verify email
-        // </Stepper.Step>
-        // <Stepper.Step label="Final step" description="Get full access">
-        //   Step 3 content: Get full access
-        // </Stepper.Step>
-        // <Stepper.Completed>
-        //   Completed, click back button to get to previous step
-        // </Stepper.Completed>
-//       </Stepper>
-
-//       <Group justify="center" mt="xl">
-//         <Button variant="default" onClick={prevStep}>Back</Button>
-//         <Button onClick={nextStep}>Next step</Button>
-//       </Group>
-//     </>

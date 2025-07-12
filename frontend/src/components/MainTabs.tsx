@@ -79,6 +79,11 @@ const MainTabs = () => {
         // }
     // const [opened, {open, close}] = useDisclosure(true);
     const [curpage, setCurpage] = useState("community")
+    const [refreshKey, setRefreshKey] = useState(0)
+    
+    const handlePostSuccess = () => {
+        setRefreshKey(prev => prev + 1)
+    }
         
     return (
     <>
@@ -88,7 +93,7 @@ const MainTabs = () => {
         radius="xs"
         keepMounted={false}
         onChange={(value) => 
-            setCurpage(value)
+            setCurpage(value || "community")
         }
     >
         <Tabs.List 
@@ -119,7 +124,7 @@ const MainTabs = () => {
         <TabsPanel 
             value='gift-xchng'
             // children={<Page formtype='gift-xchng' />}
-            children={<GiftExchange />}
+            children={<GiftExchange refreshKey={refreshKey} />}
             // children={<Test />}
             // children={<UserProfile />}
             // children={<CreatePost />}
@@ -132,7 +137,7 @@ const MainTabs = () => {
             value='community'
             // children={<Page formtype="community"/>}
             // children={<Post behaviour='open profile' username={res2.user} {...res2}/>} //change to message board   
-            children={<MessageBoard />}
+            children={<MessageBoard refreshKey={refreshKey} />}
         >
         </TabsPanel>
       
@@ -140,7 +145,7 @@ const MainTabs = () => {
             value='helpers'
             // children={<Page formtype="helpers"/>}
             // children={<HelperApplication />} //change to directory   
-            children={<HelperDirectory />}
+            children={<HelperDirectory refreshKey={refreshKey} />}
         >
         </TabsPanel>
     </Tabs>
@@ -158,7 +163,7 @@ const MainTabs = () => {
         </Affix>
         </Popover.Target>
         <Popover.Dropdown bd={0} bg={colors["Dark Skintone-d2"]}>
-                {curpage=="helpers"? <HelperApplication />:<CreatePost type={curpage}/>}
+                {curpage=="helpers"? <HelperApplication onSuccess={handlePostSuccess} />:<CreatePost type={curpage} onSuccess={handlePostSuccess}/>}
         </Popover.Dropdown>
     </Popover>
     </>

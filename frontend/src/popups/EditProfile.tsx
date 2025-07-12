@@ -15,12 +15,12 @@ import { useForm } from "@mantine/form";
 import { useState } from "react";
 import api from "@/api";
 import classes from './styles/EditProfile.module.css'
+import { useUser } from "@/components/UserInfoContext";
 
 interface EditProfileProps {
     opened: boolean;
     onClose: () => void;
     onSuccess?: () => void;
-    user_id: string; // Added user_id prop
     initialData?: {
         firstName: string;
         lastName: string;
@@ -38,18 +38,18 @@ interface UserProfileData {
     facebook_account?: string;
     instagram_account?: string;
     profile_pic?: File;
+    old_password?: string;
+    new_password?: string;
 }
 
-interface PasswordChangeData {
-    old_password: string;
-    new_password: string;
-}
 
-const EditProfile = ({ opened, onClose, onSuccess, user_id, initialData }: EditProfileProps) => {
+
+const EditProfile = ({ opened, onClose, onSuccess, initialData }: EditProfileProps) => {
     // State for managing form submission feedback
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const { currentUser, refreshUser } = useUser();
 
     // Initialize form with validation rules
     const form = useForm({
@@ -76,61 +76,112 @@ const EditProfile = ({ opened, onClose, onSuccess, user_id, initialData }: EditP
         }
     });
 
-    const updateUserProfile = async (userId: string, data: UserProfileData) => {
+    const updateUserProfile = async (data: UserProfileData) => {
         const formData = new FormData();
-        Object.entries(data).forEach(([key, value]) => {
-            if (value !== undefined) {
-                if (key === 'profile_pic' && value instanceof File) {
-                    formData.append(key, value);
-                } else {
-                    formData.append(key, String(value));
-                }
-            }
-        });
-
-        const response = await api.put(`/api/user/${userId}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
-        });
         
-        return response.data;
+        // Handle file upload
+        if (data.profile_pic && data.profile_pic instanceof File) {
+            formData.append('profile_pic', data.profile_pic);
+        }
+
+        // Handle text fields - only append if they have actual values
+        if (data.email && data.email.trim()) formData.append('email', data.email.trim());
+        if (data.facebook_account && data.facebook_account.trim()) formData.append('fb_account', data.facebook_account.trim());
+        if (data.instagram_account && data.instagram_account.trim()) formData.append('ig_account', data.instagram_account.trim());
+        if (data.first_name && data.first_name.trim()) formData.append('first_name', data.first_name.trim());
+        if (data.last_name && data.last_name.trim()) formData.append('last_name', data.last_name.trim());
+
+        // Handle password - only send new password if it exists
+        if (data.new_password && data.new_password.trim()) {
+            formData.append('password', data.new_password.trim());
+        }
+
+        try {
+            console.log('Sending update request to: /api/profile/update/');
+            console.log('FormData contents:');
+            for (let [key, value] of formData.entries()) {
+                console.log(key, value);
+            }
+
+            const response = await api.patch('/api/profile/update/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Update successful:', response.data);
+            return response.data;
+        } catch (error: any) {
+            console.error('Error updating profile:', error);
+            console.error('Error response:', error.response?.data);
+            console.error('Error status:', error.response?.status);
+            throw error;
+        }
     };
 
-    const updatePassword = async (data: PasswordChangeData) => {
-        const response = await api.post('/api/password/change', data);
-        return response.data;
-    };
+    // const updatePassword = async (data: PasswordChangeData) => {
+    //     const response = await api.post('/api/password/change', data);
+    //     return response.data;
+    // };
+
     const handleSubmit = async (values: typeof form.values) => {
         setError(null);
         setSuccess(null);
         setIsSubmitting(true);
 
+        // Validate that if new password is provided, current password is also provided
+        if (values.newPassword && !values.currentPassword) {
+            setError('Current password is required to set a new password');
+            setIsSubmitting(false);
+            return;
+        }
+
+        // Validate password confirmation
+        if (values.newPassword && values.newPassword !== values.confirmPassword) {
+            setError('New password and confirmation do not match');
+            setIsSubmitting(false);
+            return;
+        }
+
         try {
-            //to /api/user/{user_id}
-            await updateUserProfile(user_id, {
-                first_name: values.firstName,
-                last_name: values.lastName,
-                email: values.email,
-                facebook_account: values.fbAccount,
-                instagram_account: values.igAccount,
+            console.log('Form values:', values);
+
+            const result = await updateUserProfile({
+                first_name: values.firstName || undefined,
+                last_name: values.lastName || undefined,
+                email: values.email || undefined,
+                facebook_account: values.fbAccount || undefined,
+                instagram_account: values.igAccount || undefined,
                 profile_pic: values.profilePic || undefined,
+                old_password: values.currentPassword || undefined,
+                new_password: values.newPassword || undefined,
             });
 
-            //to /api/password/change
-            if (values.currentPassword && values.newPassword) {
-                await updatePassword({
-                    old_password: values.currentPassword,
-                    new_password: values.newPassword,
-                });
+            setSuccess('Profile updated successfully');
+            form.reset(); // Reset form after successful update
+            
+            // Refresh user data to show updated information
+            await refreshUser();
+            
+            onSuccess?.();
+            
+            // Don't close immediately, let user see success message
+            setTimeout(() => {
+                onClose();
+            }, 1500);
+
+        } catch (error: any) {
+            console.error('Submit error:', error);
+            
+            // Handle specific error cases
+            if (error.response?.status === 404) {
+                setError('Profile update endpoint not found.');
+            } else if (error.response?.status === 403) {
+                setError('You do not have permission to update this profile.');
+            } else if (error.response?.status === 401) {
+                setError('Authentication required. Please log in again.');
+            } else {
+                setError(error.response?.data?.detail || error.response?.data?.message || 'Failed to update profile');
             }
-
-            setSuccess('Profile updated');
-            onSuccess?.(); //TODO:remove?
-
-        } catch (error) {
-            console.log(error);
-            setError('Failed to update profile');
         } finally {
             setIsSubmitting(false);
         }
@@ -225,7 +276,6 @@ const EditProfile = ({ opened, onClose, onSuccess, user_id, initialData }: EditP
                             />
                         </div>
 
-                        {/* Form Actions */}
                         <Group justify="flex-end" mt="xl">
                             <Button variant="subtle" onClick={onClose}>Cancel</Button>
                             <Button type="submit" loading={isSubmitting}>Save Changes</Button>

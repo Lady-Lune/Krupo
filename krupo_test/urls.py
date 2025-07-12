@@ -20,19 +20,14 @@ from api.views import  AllUsersView, testview, CustomTokenObtainPairView, Logout
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView 
 from django.conf import settings
 from django.conf.urls.static import static
-# CreateUserView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/", include("api.urls")),
-    # path("api/token/", TokenObtainPairView.as_view(), name="get_token"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("api-auth/", include("rest_framework.urls")),
-    # path("api/user/register/", CreateUserView.as_view(), name="register")  #makes a new user
-    # path("api/users/", AllUsersView.as_view(), name="allusers")  #test: all user
     path("api/test/<int:pk>", testview, name="test"),  #test
-    # path("accounts/", include("django.contrib.auth.urls"))
     path("api/token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/logout/", LogoutView.as_view(), name="logout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

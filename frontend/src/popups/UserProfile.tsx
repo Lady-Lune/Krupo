@@ -136,18 +136,18 @@ const UserProfile = ({ opened, onClose, user }: UserProfileProps) => {
             <EditProfile
                     opened={editOpened}
                     onClose={closeEdit}
-                    user_id={user.id.toString()}
+                    // user_id={currentUser.id.toString()}
                     initialData={{
-                        // Pass current user data as initial values for the edit form
-                        firstName: user.first_name,
-                        lastName: user.last_name,
-                        email: user.email,
-                        fbAccount: user.fb_account,
-                        igAccount: user.ig_account,
+                        firstName: currentUser.first_name,
+                        lastName: currentUser.last_name,
+                        email: currentUser.email,
+                        fbAccount: currentUser.fb_account,
+                        igAccount: currentUser.ig_account,
                     }}
                     onSuccess={() => {
                         closeEdit();
-                        // TODO: refresh user data after successful update
+                        onClose();
+                        window.location.reload();
                     }}
                 />
         }

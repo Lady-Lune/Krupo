@@ -63,6 +63,45 @@ class UserSerializer(serializers.ModelSerializer):
 # Basic serializers to update and refine later
 # Really Happy with how these work
 
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MyUser
+        fields = [
+            'first_name', 
+            'last_name', 
+            'email', 
+            'profile_pic',
+            'fb_account',
+            'ig_account',
+            'location',
+            'password'
+        ]
+        extra_kwargs = {
+            "password": {"write_only": True, "required": False},
+            "email": {"required": False},
+            "profile_pic": {"required": False},
+            "location": {"required": False},
+            "fb_account": {"required": False},
+            "ig_account": {"required": False},
+            "first_name": {"required": False},
+            "last_name": {"required": False},
+        }
+        
+    def update(self, instance, validated_data):
+        # Handle password separately
+        password = validated_data.pop('password', None)
+        
+        # Update other fields
+        for field, value in validated_data.items():
+            setattr(instance, field, value)
+        
+        # Handle password update with proper hashing
+        if password:
+            instance.set_password(password)
+            
+        instance.save()
+        return instance
+
 # -------------------------------------------------------------------------------#
 
 class RepliesSerializer(serializers.ModelSerializer):

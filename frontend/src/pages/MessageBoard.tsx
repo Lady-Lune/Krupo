@@ -6,21 +6,31 @@ import Post from "../components/Post"
 import { response } from "./SampleResponse"
 
 
-const MessageBoard = () => {
-        const [posts, setPosts] = useState<PostorGift[]>(response);
-        useEffect( () => {
-            const getRespose = async () => {
-                const response = await api.get('/api/posts')
-                console.log(response.data)
-                setPosts(response.data)
-            }
-            getRespose();
-    },[])   
+interface MessageBoardProps {
+    refreshKey?: number;
+}
 
+const MessageBoard = ({ refreshKey }: MessageBoardProps) => {
+        const [posts, setPosts] = useState<PostorGift[]>(response);
+        
+        const fetchPosts = async () => {
+            const response = await api.get('/api/posts/')
+            console.log(response.data)
+            setPosts(response.data)
+        };
+        
+        useEffect( () => {
+            fetchPosts();
+    },[refreshKey])   
+
+
+    const handlePostDelete = () => {
+        fetchPosts(); // Refetch posts after deletion
+    };
 
     return (
     <>
-    <Grid  p="md" gutter="xl" columns={12} justify="center"> 
+    <Grid  p="md" gutter="xl" columns={12} justify="center" align="center" > 
         {
         posts.map(
             (post, index) => {
@@ -40,6 +50,7 @@ const MessageBoard = () => {
                         <Post 
                             post_or_gift="post"
                             post={post}
+                            onDelete={handlePostDelete}
                         />
                     </Grid.Col>
                 )
