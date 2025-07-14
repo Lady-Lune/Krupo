@@ -19,7 +19,7 @@ const UserHelperCards = () => {
     const fetchHelperCards = async () => {
         try{
             const res = await api.get('/api/helpercards/')
-            console.log(res.data)
+            // console.log(res.data)
             setHelperCards(res.data)
         } catch(error) {
             console.error('Error fetching helper cards:', error)

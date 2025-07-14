@@ -21,6 +21,7 @@ import { useUser } from "@/components/UserInfoContext";
 import UserHelperCards from "@/components/UserHelperCards";
 import { useNavigate } from "react-router-dom";
 import api from "@/api";
+import Alert from "@/components/Alert";
 
 interface UserProfileProps {
     opened: boolean;
@@ -33,6 +34,12 @@ const UserProfile = ({ opened, onClose, user }: UserProfileProps) => {
     const [editOpened, { open: openEdit, close: closeEdit }] = useDisclosure(false);
     const {currentUser, refreshUser} = useUser();
     const navigate = useNavigate();
+    const [alertOpened, { open: openAlert, close: closeAlert }] = useDisclosure(false);
+
+    const alertinfo = {
+        title:"Confirm Delete",
+        description:"This action cannot be undone"
+    }
 
     const handleEngagement = async () => {
         try {
@@ -42,6 +49,18 @@ const UserProfile = ({ opened, onClose, user }: UserProfileProps) => {
         } finally {
             refreshUser()
         }
+    }
+
+    const deleteAccount = async () => {
+        try {
+            const res = await api.delete(`/api/users/${currentUser?.id}`)
+        } catch (error) {
+            console.error(error)
+        } finally {
+            refreshUser()
+            navigate('/login')
+        }
+        
     }
     
 
@@ -130,15 +149,21 @@ const UserProfile = ({ opened, onClose, user }: UserProfileProps) => {
 
             <Space h={20}/>
 
-            <UserHelperCards />
+            { (currentUser?.id == user.id) && <UserHelperCards />}
                 
             <Space h={10} />
             { (currentUser?.id == user.id) &&
                 <Button variant='filled' fullWidth onClick={openEdit}>Edit Profile</Button>
             }
+
             <Space h={10} />
             { (currentUser?.id == user.id) &&
                 <Button bg={"orange"} fullWidth onClick={() => navigate("/logout")}>Logout</Button>
+            }
+
+            <Space h={10} />
+            { (currentUser?.id == user.id) &&
+                <Button variant="filled" color="red" fullWidth onClick={openAlert}>Delete Account</Button>
             }
         </Card>
         </Modal>
@@ -163,6 +188,11 @@ const UserProfile = ({ opened, onClose, user }: UserProfileProps) => {
                     }}
                 />
         }
+        <Alert 
+            modal={{alertopened:alertOpened, closealert:closeAlert}}
+            alertinfo={alertinfo}
+            button={{show:true, onClick:deleteAccount}}
+        />
 
 
 

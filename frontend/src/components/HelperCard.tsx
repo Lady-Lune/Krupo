@@ -1,15 +1,15 @@
 import { colors } from '@/theme'
 import { Button, Card , Group, Image , Tooltip, Stack , Text, Badge} from '@mantine/core'
-import { HelperCardType, User } from '../../types/model_types'
+import { HelperCardType, Profile } from '../../types/model_types'
 import api from '@/api'
 import { useEffect, useState } from 'react'
-import { useUser } from './UserInfoContext'
+import { getUserInfo, useUser } from './UserInfoContext'
 import classes from './styles/HelperCard.module.css'
+import UserProfile from '@/popups/UserProfile';
+import { useDisclosure } from '@mantine/hooks'
+import Alert from "@/components/Alert";
 
-// User.username
-// User.location
-// HelperRole.serv_type
-// HelperRole.serv_desc
+
 export interface HelperCardProps{
     data:HelperCardType
     onDelete?:() => void;
@@ -19,6 +19,14 @@ export interface HelperCardProps{
 export default function HelperCard({data, onDelete, onRecommend}:HelperCardProps) {
     const {currentUser, refreshUser} = useUser();
     const [allowDelete, setAllowDelete] = useState<boolean>();
+    const [profile, setProfile] = useState<Profile|null>();
+    const [profileOpened, { open: openProfile, close: closeProfile }] = useDisclosure(false);
+    const [alertOpened, { open: openAlert, close: closeAlert }] = useDisclosure(false);
+
+    const alertinfo = {
+        title:"Confirm Delete",
+        description:"This action cannot be undone"
+    }
 
     useEffect(() => {
             if (currentUser?.id === data.user?.id) {
@@ -37,7 +45,6 @@ export default function HelperCard({data, onDelete, onRecommend}:HelperCardProps
         } finally {
             refreshUser()
         }
-        
     }
 
     const deleteHelperCard = async () => {
@@ -54,6 +61,17 @@ export default function HelperCard({data, onDelete, onRecommend}:HelperCardProps
     }
 
 
+    const handleProfileClick = async () => {
+        try {
+            const userid = data.user?.id
+            const userprofile = await getUserInfo(userid.toString())
+            setProfile(userprofile)
+            openProfile() // Only open after profile is fetched
+        } catch (error) {
+            console.error('Error fetching profile:', error)
+        }
+    }
+
     
     return(
         <>
@@ -63,22 +81,25 @@ export default function HelperCard({data, onDelete, onRecommend}:HelperCardProps
             >
                 <Group
                     className={classes.group}
+                    
                 >
                     <Image
                         src={data.user?.profile_pic}
                         className={classes.image}
+                        onClick={handleProfileClick}
                     />
                 
-                <Stack className={classes.stack}> {/*pos="absolute" right={10}*/}
+                <Stack className={classes.stack} 
+                > 
                     <Group>
-                    <Text className={classes.username}>{data.user?.username}</Text> 
+                    <Text onClick={handleProfileClick} className={classes.username}>{data.user?.username}</Text> 
                     <Tooltip label="Gift Requests" position="bottom">
                             <Badge bg={colors["Moss Green"]} autoContrast circle>{data.recommendations || 0}</Badge>
                     </Tooltip>
                     </Group>
                     <Text className={classes.location}>{data.user?.location}</Text> 
                     <Text className={classes.serviceType}>{data.serv_type}</Text> 
-                    <Text className={classes.serviceDescription} lineClamp={4}>{data.serv_desc}</Text> 
+                    <Text className={classes.serviceDescription}>{data.serv_desc}</Text> 
                     { !allowDelete &&<Button 
                         onClick={recommend}
                         className={classes.button}
@@ -89,16 +110,31 @@ export default function HelperCard({data, onDelete, onRecommend}:HelperCardProps
                     }
 
                     { allowDelete &&<Button 
-                        onClick={deleteHelperCard}
+                        onClick={openAlert}
                         className={classes.button}
                         bg={colors["Orange"]} 
                     >
                             DELETE
                     </Button>
-}
+                    }
                 </Stack>
                 </Group>
             </Card>
+
+            <Alert 
+                modal={{alertopened:alertOpened, closealert:closeAlert}}
+                alertinfo={alertinfo}
+                button={{show:true, onClick:deleteHelperCard}}
+            />
+
+            
+            {profile && 
+                <UserProfile 
+                    opened={profileOpened}
+                    onClose={closeProfile}
+                    user={profile}
+                />
+            }
         </>
     )
 };

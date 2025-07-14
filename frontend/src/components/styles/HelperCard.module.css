@@ -6,27 +6,32 @@
 }
 
 .group {
-    justify-content: center;
+    justify-content: space-between;
+    width: "100%";
+    gap: 0;
 }
 
 .image {
     border-radius: 25px;
     border: 1px solid hsl(185, 21%, 45%);
     width: 30%;
-    height: 85%;
-    position: absolute;
-    left: 10px;
+    cursor: pointer;
+    /* padding: 0; */
+    /* height: 85%; */
+    /* position: absolute;
+    left: 10px; */
 }
 
 .stack {
     gap: 0.5rem;
     height: 90%;
-    width: 75%;
-    padding: 0 0 0 85px;
+    width: 60%;
+    /* padding: 0 0 0 85px; */
 }
 
 .username {
     font-size: var(--mantine-font-size-md);
+    cursor: pointer;
 }
 
 .location {

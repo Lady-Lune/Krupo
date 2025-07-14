@@ -108,7 +108,7 @@ const Post = ({post, post_or_gift, onDelete}:PostProps) => {
             </Card.Section> */}
 
             {/* <Card.Section className={classes.replySection}> */}
-            { post_or_gift=="post" &&   <ReplySection post={post} displayDelete={displayDelete} onDelete={deletePost}/>}
+              <ReplySection post={post} displayDelete={displayDelete} onDelete={deletePost}/>
             {/* </Card.Section> */}
 
             { post_or_gift=="gift" &&   <Space h={10}/>}

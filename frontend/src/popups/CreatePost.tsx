@@ -62,7 +62,7 @@ const CreatePost = ({type, onSuccess}:CreatePostProps) => {
             onSuccess?.();
             // console.log( type , res.data);
         } catch (error) {
-            console.log(error);
+            console.error(error)
         }
     };
     return(
@@ -73,13 +73,16 @@ const CreatePost = ({type, onSuccess}:CreatePostProps) => {
             onSubmit={form.onSubmit(handleSubmit)}
             
         >
+
+            
             <PostHead 
                 username={currentUser?.username || "None"} 
                 profile_pic={currentUser?.profile_pic || ""} 
                 posted_date={new Date().toISOString().split('T')[0]} 
                 action={{
                     type:"submit", 
-                    onClick:handleSubmit}}
+                    onClick:handleSubmit,
+                }}
             /> 
             {/* posted_date} /> */} {/* User.username, User.profile_pic, Post.posted_date */}
                 <TextInput
@@ -132,6 +135,7 @@ const CreatePost = ({type, onSuccess}:CreatePostProps) => {
                     }
                 >
                 </TextInput> */}
+                
         </Card>
 
         </>

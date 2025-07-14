@@ -9,7 +9,7 @@ import {
     TextInput,
     Title,
   } from '@mantine/core';
-import { Link , Navigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { ACCESS_TOKEN , REFRESH_TOKEN, USER } from '@/constants';
 import api from '@/api';
@@ -29,6 +29,8 @@ const Login = () => {
     },
   });
 
+  const navigate = useNavigate()
+
   const handleSubmit = async () => {
     const values = form.getValues();
     try {
@@ -44,7 +46,7 @@ const Login = () => {
         localStorage.setItem(USER, `${decoded.user_id}`);
 
 
-        window.location.href = "/home";
+        navigate("/")
     } catch (error) {
       alert(error)
     } finally {

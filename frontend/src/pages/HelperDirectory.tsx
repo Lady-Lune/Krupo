@@ -34,7 +34,7 @@ const HelperDirectory = ({ refreshKey }: HelperDirectoryProps) => {
 
     return (
     <>
-    <Grid columns={12} className={classes.grid}> {/*bg={colors["Teal-l1"]}*/}
+    <Grid columns={12} className={classes.grid} align="center"> {/*bg={colors["Teal-l1"]}*/}
         {
         helpers?.map(
             (helper, index) => {

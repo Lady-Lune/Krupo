@@ -65,7 +65,7 @@ const EditProfile = ({ opened, onClose, onSuccess, initialData }: EditProfilePro
             confirmPassword: '',
         },
         validate: {
-            email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+            email: (value) => value ? (/^\S+@\S+$/.test(value) ? null : 'Invalid email') : null,
             fbAccount: (value) => value ? /^https?:\/\/(?:www\.)?facebook\.com/.test(value) ? null : 'Invalid Facebook URL' : null,
             igAccount: (value) => value ? /^https?:\/\/(?:www\.)?instagram\.com/.test(value) ? null : 'Invalid Instagram URL' : null,
             newPassword: (value, values) => 
