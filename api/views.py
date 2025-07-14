@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import generics
-from .serializers import UserSerializer, UserProfileUpdateSerializer, PostsSerializer, GiftsSerializer, RepliesSerializer, HelperRoleSerializer, UserProfileSerializer, CustomTokenObtainPairSerializer
+from .serializers import UserSerializer, UserProfileUpdateSerializer, PostsSerializer, GiftsSerializer, RepliesSerializer, HelperRoleSerializer, UserProfileSerializer, EngagementMetricsSerializer, CustomTokenObtainPairSerializer
 from rest_framework.permissions import AllowAny,IsAuthenticated
-from .models import MyUser, Posts, Gifts, Replies, HelperRole
+from .models import MyUser, Posts, Gifts, Replies, HelperRole, EngagementMetrics
 from rest_framework import viewsets
 from django.contrib.auth import authenticate, login, logout
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -94,10 +94,13 @@ class LogoutView(APIView):
 #-------------------------------------------------------------------------------#
 
 #for test purposes
-class AllUsersView(generics.ListAPIView):
-    queryset = MyUser.objects.all()
-    serializer_class = UserSerializer
-    permission_classes = [AllowAny]
+class HelperCards(generics.ListAPIView):
+    serializer_class = HelperRoleSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Get all HelperRole objects for the current user
+        return HelperRole.objects.filter(user=self.request.user)
 
 def testview(request, pk):
     user = MyUser.objects.get(id=pk)
@@ -108,7 +111,7 @@ def testview(request, pk):
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def increment_recommendation(request, pk):
     try:
         helper_card = get_object_or_404(HelperRole, id=pk)
@@ -120,6 +123,38 @@ def increment_recommendation(request, pk):
     except Exception as e:
         return Response(
             {'error': 'Failed to increment recommendation', 'detail': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def increment_replycount(request):
+    try:
+        engagement_record = get_object_or_404(EngagementMetrics, user=request.user)
+        engagement_record.reply_count += 1
+        engagement_record.save()
+        
+        serializer = EngagementMetricsSerializer(engagement_record)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {'error': 'Failed to increment reply count', 'detail': str(e)},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+    
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def increment_reachoutcount(request):
+    try:
+        engagement_record = get_object_or_404(EngagementMetrics, user=request.user)
+        engagement_record.reachout_count += 1
+        engagement_record.save()
+        
+        serializer = EngagementMetricsSerializer(engagement_record)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(
+            {'error': 'Failed to increment reply count', 'detail': str(e)},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
 

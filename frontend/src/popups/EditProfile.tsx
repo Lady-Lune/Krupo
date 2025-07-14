@@ -99,16 +99,16 @@ const EditProfile = ({ opened, onClose, onSuccess, initialData }: EditProfilePro
         try {
             console.log('Sending update request to: /api/profile/update/');
             console.log('FormData contents:');
-            for (let [key, value] of formData.entries()) {
-                console.log(key, value);
-            }
+            // for (let [key, value] of formData.entries()) {
+            //     console.log(key, value);
+            // }
 
             const response = await api.patch('/api/profile/update/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('Update successful:', response.data);
+            // console.log('Update successful:', response.data);
             return response.data;
         } catch (error: any) {
             console.error('Error updating profile:', error);

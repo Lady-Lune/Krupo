@@ -1,6 +1,6 @@
 import { colors } from '@/theme'
-import { Button, Card , Group, Image , Space, Stack , Text ,TextInput , Textarea, Modal} from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks';
+import styles from './styles/HelperApplication.module.css'
+import { Button, Card, Stack , Text ,TextInput , Textarea,} from '@mantine/core';
 import { useForm , hasLength} from "@mantine/form"
 import api from '@/api';
 import { useUser } from '@/components/UserInfoContext';
@@ -16,7 +16,7 @@ interface HelperApplicationProps {
 
 export default function HelperApplication({ onSuccess }: HelperApplicationProps) {
 
-    const { currentUser} = useUser(); // Access context data here
+    const { currentUser, refreshUser} = useUser(); // Access context data here
 
     
     const form = useForm({
@@ -32,7 +32,7 @@ export default function HelperApplication({ onSuccess }: HelperApplicationProps)
 
     const handleSubmit = async () => {
         const values = form.getValues();
-        console.log(values)
+        // console.log(values)
         try {
         const res = await api.post("/api/helpers/", 
             { 
@@ -45,15 +45,14 @@ export default function HelperApplication({ onSuccess }: HelperApplicationProps)
         } catch (error) {
             alert(error)
         } finally {
-            // add a finally block
+            refreshUser();
         };
     }
     
     return(
         <>
             <Card
-                // w={400}
-                // h={200}
+                className={styles.card}
                 w={{
                     base:400,
                     sm:300
@@ -62,10 +61,6 @@ export default function HelperApplication({ onSuccess }: HelperApplicationProps)
                     base:200
                 }}
                 withBorder
-                bd="3px solid hsl(185, 21%, 45%)"
-                bg="#F9F9EF"
-                radius={25}
-                p="md"
             >
                 {/* <Group
                     // dir='column'
@@ -79,36 +74,31 @@ export default function HelperApplication({ onSuccess }: HelperApplicationProps)
                     fit="scale-down"
                     w={"30%"}
                 /> */}
-                <Stack gap={3}  > {/*pos="absolute" right={10} w={"60%"} w={"100%"} */}
-                    <Text size='sm' p="0 3">
+                <Stack className={styles.stack}> {/*pos="absolute" right={10} w={"60%"} w={"100%"} */}
+                    <Text className={styles.text}>
                         {currentUser? currentUser?.username:"------"}    
                     </Text> {/*size='md' w={265}*/}
                     
-                    <Text size='sm' p="0 3">
+                    <Text className={styles.text}>
                         {currentUser? currentUser?.location:"------"} 
                     </Text> {/*size='sm' w={265}*/}
 
                     <TextInput 
-                        size='sm' 
+                        className={styles.input}
                         placeholder='Job'
                         key={form.key('serv_type')}
                         {...form.getInputProps('serv_type')}
                     /> {/*size='sm' w={265}*/}
                     <Textarea 
-                        size='sm' 
+                        className={styles.textarea}
                         placeholder='Description'
                         key={form.key('serv_desc')}
                         {...form.getInputProps('serv_desc')}
                     /> {/*size='sm' w={265}*/}
                     <Button 
                         fullWidth 
-                        radius={25} 
+                        className={styles.submitButton}
                         bg={colors["Moss Green"]} 
-                        h={25} ff="Averia Gruesa Libre" 
-                        fz={13} 
-                        lts={1} 
-                        p={3} 
-                        fw={1}
                         onClick={handleSubmit}
                     >BECOME HELPER</Button>
                 </Stack>

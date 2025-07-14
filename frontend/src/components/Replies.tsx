@@ -5,6 +5,7 @@ import { useDisclosure } from '@mantine/hooks';
 import UserProfile from '@/popups/UserProfile';
 import { getUserInfo } from './UserInfoContext';
 import { useState } from 'react';
+import classes from './styles/Replies.module.css';
 
 interface RepliesProps {
     post: PostorGift;
@@ -27,32 +28,27 @@ const Replies = ({ post }: RepliesProps) => {
 
     if (post.replies) {
         return (
-            <Stack gap={0}  >
+            <Stack className={classes.container}>
                 {post.replies.map((reply, index) => (
-                    <Group gap="sm" key={`${reply.id}-${index}`}>
+                    <Group className={classes.replyGroup} key={`${reply.id}-${index}`}>
                         <Avatar 
                             size="xs"
                             src={reply.user?.profile_pic} 
                             alt={reply.user?.first_name ? `${reply.user.first_name}'s avatar` : 'User avatar'}
                             onClick={() => handleAvatarClick(reply.user?.id)}
-                            style={{ cursor: 'pointer' }}
+                            className={classes.avatar}
                         />
                             <Text
-                                fz={12}
-                                w="10%"
+                                className={classes.username}
                                 truncate="end"
                                 onClick={() => handleAvatarClick(reply.user?.id)}
-                                style={{ cursor: 'pointer' }}
                             >
                                 {reply.user?.username || "None"}
                             </Text>
                             <Text
                                 key={index}
-                                ff="Average Sans"
-                                fz={12}
-                                lh={1.25}
-                                bg={colors["Pale-Yellow"]}
-                                w="75%"
+                                className={classes.replyContent}
+   
                                 lineClamp={10}
                             >
                             {reply.content}

@@ -14,6 +14,7 @@ import { useForm } from '@mantine/form';
 import { ACCESS_TOKEN , REFRESH_TOKEN, USER } from '@/constants';
 import api from '@/api';
 import { jwtDecode } from "jwt-decode";
+import classes from './styles/Login.module.css'
 
 
 const Login = () => {
@@ -53,30 +54,25 @@ const Login = () => {
     return(
         <>
         {/* HEADER without Avatar and MainTabs */}
-        <Container 
-            style={{ 
-                height:150,
-                alignContent:"space-around"
-                }}
-        >
+        <Container className={classes.headerContainer}>
             <Image 
                 src="src\assets\ComboLogo_-_Color_-_B-removebg-preview.svg"
                 fit="scale-down"
-                height={100}
+                className={classes.logo}
             />
         </Container >
         
         {/* FORM */}
-        <Container size={420} my={40} >
-            <Title ta="center"> 
+        <Container className={classes.formContainer}>
+            <Title className={classes.title}> 
                 Welcome back!
             </Title>
 
-            <Text ta="center" mt={5}>
+            <Text className={classes.subtitle}>
                 Do not have an account yet? <Link to="/register">Create account</Link>
             </Text>
 
-            <Paper withBorder shadow="sm" p={22} mt={30} radius="md">
+            <Paper withBorder shadow="sm" className={classes.paper}>
                 <TextInput 
                     label="Username" 
                     placeholder="Username" 
@@ -90,21 +86,14 @@ const Login = () => {
                     label="Password" 
                     placeholder="Your password" 
                     required 
-                    mt="md" 
-                    radius="md" 
+                    className={classes.passwordInput}
                     key={form.key('password')} 
                     {...form.getInputProps('password')}
                 />
 
                 <Button 
-                    fullWidth 
-                    mt="xl" 
-                    radius="md" 
+                    className={classes.button}
                     bg={colors["Moss Green"]}  
-                    ff="Averia Gruesa Libre"  
-                    lts={1} 
-                    p={3} 
-                    fw={1} 
                     onClick={handleSubmit}
                 > 
                 SIGN IN

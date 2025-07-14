@@ -1,4 +1,5 @@
 import {colors} from '@/theme'
+import styles from './Register.module.css'
 import {
     Button,
     ComboboxData,
@@ -17,7 +18,7 @@ import {
     Fieldset,
     Stack
   } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm, isEmail, hasLength, matches } from '@mantine/form';
 import api from '@/api';
 import { districts , LOCATIONS } from '@/locations';
@@ -76,7 +77,7 @@ const Register = () => {
                         </>
 
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     initialValues: {
       username: '',
       password: '',
@@ -100,6 +101,8 @@ const Register = () => {
     //   put restrictions on firstname last name character length
     },
   });
+
+    const navigate = useNavigate();
 
     const handleSubmit = async () => {
         const values = form.getValues();
@@ -126,41 +129,35 @@ const Register = () => {
         } catch (error) {
             console.log(error);
         } finally {
-            window.location.href = "/login/"
+            navigate("/login");
         }
     }
 
     return(
         <>
             {/* HEADER without Avatar and MainTabs */}
-            <Container 
-                style={{ 
-                    height:150,
-                    alignContent:"space-around"
-                    }}
-            >
+            <Container className={styles.headerContainer}>
                 <Image 
                     src="src\assets\ComboLogo_-_Color_-_B-removebg-preview.svg"
                     fit="scale-down"
-                    height={100}
+                    className={styles.logo}
                 />
             </Container >
 
 
-            <Container size={420} my={40} >
+            <Container size={420} my={40} className={styles.container}>
 
-                <Title ta="center"> Welcome! </Title>
+                <Title className={styles.title}> Welcome! </Title>
 
-                <Text ta="center" mt={5}> Have an account?<Link to="/login">Login</Link></Text>
+                <Text className={styles.subtitle}> Have an account?<Link to="/login">Login</Link></Text>
 
-                <Paper withBorder shadow="sm" p={22} mt={30} radius="md" ta="center"   > 
-                    {/* bg={colors["Dark Skintone-d3"]} */}
-                <Stepper active={active} onStepClick={setActive} size="xs"  >
-                    {/* color={colors["Red"]} */}
+                <Paper withBorder shadow="sm" className={styles.paper}> 
+                    {/* bg={colors["Dark Skintone-d3"]} mt={30} radius="md" ta="center"*/}
+                <Stepper active={active} onStepClick={setActive} size="xs" className={styles.stepper}>
                     <Stepper.Step >
-                        <Stack >
+                        <Stack className={styles.stack}>
                             <TextInput 
-                                ta="left"
+                                className={styles.input}
                                 label="Username" 
                                 placeholder="Username" 
                                 required
@@ -170,7 +167,7 @@ const Register = () => {
                             />
 
                             <PasswordInput 
-                                ta="left"
+                                className={styles.passwordInput}
                                 label="Password" 
                                 placeholder="Password" 
                                 required 
@@ -181,7 +178,7 @@ const Register = () => {
 
                             <NativeSelect 
                                 required
-                                ta="left"
+                                className={styles.input}
                                 label="District"
                                 onChange={changedivoptions}
                             >
@@ -196,18 +193,15 @@ const Register = () => {
 
                             <NativeSelect 
                                 required
-                                ta="left"
+                                className={styles.input}
                                 label="Division"
                                 data={divOptions}
                                 key={form.key('location')} 
                                 {...form.getInputProps('location')}
                             />
                             <Button
-                                radius="md" 
-                                fw={1} 
-                                autoContrast
+                                className={styles.nextButton}
                                 onClick={nextStep}
-                                
                             > 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-right" viewBox="0 0 16 16">
                                 <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
@@ -215,6 +209,7 @@ const Register = () => {
                             </Button>
                             <Button 
                                 fullWidth 
+                                className={styles.joinButton}
                                 radius="md" 
                                 // bg={colors["Moss Green"]}  
                                 ff="Averia Gruesa Libre"  
@@ -229,14 +224,16 @@ const Register = () => {
                         
                     </Stepper.Step>
                     <Stepper.Step>
-                        <Group grow>
+                        <Group grow className={styles.inputGroup}>
                             <TextInput 
+                                className={styles.textInput}
                                 placeholder="First Name" 
                                 radius="md"
                                 key={form.key('first_name')} 
                                 {...form.getInputProps('first_name')}
                             />
                             <TextInput 
+                                className={styles.textInput}
                                 placeholder="Last Name" 
                                 radius="md" 
                                 key={form.key('last_name')} 
@@ -245,6 +242,7 @@ const Register = () => {
                         </Group>
                             <Space h="xs"/>
                             <FileInput
+                                className={styles.fileInput}
                                 leftSection={cameraicon}
                                 placeholder="Profile Pic"
                                 key={form.key("profile_pic")}
@@ -252,8 +250,9 @@ const Register = () => {
                                 //"src\assets\Logo - Color - W (2).png"
                             />
                             <Space h="xs"/>
-                            <Fieldset  ta="left" variant='' legend="Contact info" bg={colors["Dak Skintone-d2"]}>
+                            <Fieldset className={styles.fieldset} ta="left" variant='' legend="Contact info" bg={colors["Dak Skintone-d2"]}>
                             <TextInput 
+                                className={styles.textInput}
                                 leftSection={emailicon}
                                 placeholder="Email" 
                                 radius="md" 
@@ -262,6 +261,7 @@ const Register = () => {
                             />
                             <Space h="xs"/>
                             <TextInput 
+                                className={styles.textInput}
                                 leftSection={fbicon}
                                 placeholder="Facebook" 
                                 radius="md" 
@@ -270,6 +270,7 @@ const Register = () => {
                             />
                             <Space h="xs"/>
                             <TextInput 
+                                className={styles.textInput}
                                 leftSection={igicon}
                                 placeholder="Instagram" 
                                 radius="md" 
@@ -280,6 +281,7 @@ const Register = () => {
                             <Space h="xs"/>
                             <Button 
                                 fullWidth
+                                className={styles.prevButton}
                                 radius="md" 
                                 fw={1} 
                                 autoContrast
@@ -292,6 +294,7 @@ const Register = () => {
                             <Space h="xs"/>
                             <Button 
                                 fullWidth 
+                                className={styles.joinButton}
                                 radius="md" 
                                 // bg={colors["Moss Green"]}  
                                 ff="Averia Gruesa Libre"  

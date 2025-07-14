@@ -1,0 +1,26 @@
+/* Replies.module.css */
+.container {
+    gap: 0;
+}
+
+.replyGroup {
+    gap: var(--mantine-spacing-sm);
+}
+
+.avatar {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.username {
+    font-size: 12px;
+    width: 10%;
+    cursor: pointer;
+}
+
+.replyContent {
+    font-family: "Average Sans";
+    font-size: 12px;
+    line-height: 1.25;
+    width: 75%;    
+}

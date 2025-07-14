@@ -44,6 +44,7 @@ export interface HelperCardType{
     user:User;
     serv_type:string;
     serv_desc:string;
+    recommendations:number;
 }
 
 export interface EngagementMetric {

@@ -2,9 +2,8 @@ import api from "@/api"
 import { Grid , Card } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { HelperCardType, PostorGift } from "../../types/model_types"
-import { helpersresponse, response } from "./SampleResponse"
 import HelperCard from "@/components/HelperCard"
-
+import classes from './styles/HelperDirectory.module.css'
 
 
 
@@ -13,7 +12,7 @@ interface HelperDirectoryProps {
 }
 
 const HelperDirectory = ({ refreshKey }: HelperDirectoryProps) => {
-        const [helpers, setHelpers] = useState<HelperCardType[]>(helpersresponse);
+        const [helpers, setHelpers] = useState<HelperCardType[] | null>(null);
         const fetchPosts = async () => {
             const response = await api.get('/api/helpers/')
             console.log(response.data)
@@ -28,13 +27,16 @@ const HelperDirectory = ({ refreshKey }: HelperDirectoryProps) => {
         fetchPosts(); // Refetch posts after deletion
         };
 
+        const onRecommend = () => {
+            fetchPosts()
+        }
 
 
     return (
     <>
-    <Grid p="md" gutter="xl" columns={12} justify="center"> {/*bg={colors["Teal-l1"]}*/}
+    <Grid columns={12} className={classes.grid}> {/*bg={colors["Teal-l1"]}*/}
         {
-        helpers.map(
+        helpers?.map(
             (helper, index) => {
                 return (
                 <Grid.Col 
@@ -49,11 +51,9 @@ const HelperDirectory = ({ refreshKey }: HelperDirectoryProps) => {
                     }}   
                 >
                     <HelperCard 
-                        user={helper.user}
-                        helper_id={helper.id}
-                        serv_type={helper.serv_type}
-                        serv_desc={helper.serv_desc}
+                        data={helper}
                         onDelete={afterDelete}
+                        onRecommend={onRecommend}
                     />
                 </Grid.Col>
                     )

@@ -1,0 +1,23 @@
+/* MainTabs.module.css */
+.tabsList {
+    font-family: "Averia Gruesa Libre";
+}
+
+.affix {
+    bottom: 30px;
+    right: 30px;
+}
+
+.createButton {
+    height: 7vh; 
+    width: 7vh;
+    border-radius: 7vh;
+    padding:0;
+}
+
+.popoverDropdown {
+    /* border: "1px solid red"; */
+    background-color: var(--mantine-color-moss-green-6);
+    height: max-content;
+    padding: 1;
+}

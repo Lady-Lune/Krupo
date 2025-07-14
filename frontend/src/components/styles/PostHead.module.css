@@ -1,0 +1,35 @@
+/* PostHead.module.css */
+.group {
+    justify-content: space-evenly;
+    padding: 10px 5px;
+}
+
+.avatar {
+    border-radius: var(--avatar-radius-xl);
+    
+}
+
+.userInfo {
+    padding: 5px;
+    text-align: center;
+}
+
+.username {
+    line-height: 0.5;
+    font-size: var(--mantine-font-size-md);
+}
+
+.date {
+    line-height: 0;
+    font-size: var(--mantine-font-size-xs);
+}
+
+.actionButton {
+    border-radius: var(--mantine-radius-xl);
+}
+
+.profileIcon {
+    height: 57.5px;
+    position: absolute;
+    bottom: -5px;
+}

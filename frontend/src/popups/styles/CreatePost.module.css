@@ -1,6 +1,7 @@
 .card{
-    display:"flex";
-    background-color: var(--mantine-color-orange-0);
+    /* display:"flex"; */
+    background-color: var(--mantine-color-moss-green-1);
+    
 }
 
 .input {

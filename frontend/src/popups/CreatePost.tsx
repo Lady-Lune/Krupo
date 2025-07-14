@@ -1,6 +1,5 @@
 import { Card, FileInput, Textarea, TextInput, Modal, Affix, Button} from "@mantine/core"
 import { useForm, hasLength } from "@mantine/form"
-import { colors } from "@/theme"
 import PostHead from "../components/PostHead"
 import classes from './styles/CreatePost.module.css'
 import api from "@/api"
@@ -106,7 +105,8 @@ const CreatePost = ({type, onSuccess}:CreatePostProps) => {
                             input:classes.input,
                             wrapper:classes.wrapper,
                         }
-                    }                />
+                    }                
+                />
 
                 <Textarea
                     key={form.key('description')}
@@ -120,7 +120,7 @@ const CreatePost = ({type, onSuccess}:CreatePostProps) => {
                     }
                 >
                 </Textarea>
-                <TextInput
+                {/* <TextInput
                     key={form.key('tags')}
                     {...form.getInputProps('tags')}
                     placeholder="Tags"
@@ -131,7 +131,7 @@ const CreatePost = ({type, onSuccess}:CreatePostProps) => {
                         }
                     }
                 >
-                </TextInput>
+                </TextInput> */}
         </Card>
 
         </>

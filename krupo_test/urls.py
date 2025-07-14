@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import  AllUsersView, testview, CustomTokenObtainPairView, LogoutView
+from api.views import testview, CustomTokenObtainPairView, LogoutView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -27,7 +27,6 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh_token"),
     path("api-auth/", include("rest_framework.urls")),
-    path("api/test/<int:pk>", testview, name="test"),  #test
     path("api/token/", CustomTokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/logout/", LogoutView.as_view(), name="logout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

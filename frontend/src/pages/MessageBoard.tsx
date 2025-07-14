@@ -3,7 +3,7 @@ import { Grid } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
-import { response } from "./SampleResponse"
+import classes from './styles/MessageBoard.module.css'
 
 
 interface MessageBoardProps {
@@ -11,11 +11,11 @@ interface MessageBoardProps {
 }
 
 const MessageBoard = ({ refreshKey }: MessageBoardProps) => {
-        const [posts, setPosts] = useState<PostorGift[]>(response);
+        const [posts, setPosts] = useState<PostorGift[] | null>(null);
         
         const fetchPosts = async () => {
             const response = await api.get('/api/posts/')
-            console.log(response.data)
+            // console.log(response.data)
             setPosts(response.data)
         };
         
@@ -30,9 +30,9 @@ const MessageBoard = ({ refreshKey }: MessageBoardProps) => {
 
     return (
     <>
-    <Grid  p="md" gutter="xl" columns={12} justify="center" align="center" > 
+    <Grid className={classes.grid} align="center"> 
         {
-        posts.map(
+        posts?.map(
             (post, index) => {
                 const post_user = post.user;
                 return (

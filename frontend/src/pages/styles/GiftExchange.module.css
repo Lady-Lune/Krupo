@@ -1,0 +1,13 @@
+/* GiftExchange.module.css */
+.grid {
+    padding: var(--mantine-spacing-md);
+    /* gap: var(--mantine-spacing-md); */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* border: 20px violet solid;  */
+}
+
+.gridcol{
+    /* border: 20px violet solid; */
+}

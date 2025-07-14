@@ -1,0 +1,50 @@
+/* Post.module.css */
+.card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.titleSection {
+    padding: 5px 15px;
+}
+
+.title {
+    font-family: "Average";
+    font-size: var(--mantine-font-size-md);
+    line-height: 1.25;
+}
+
+.imageSection {
+    padding: 10px 15px;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+}
+
+.descriptionSection {
+    padding: 5px 15px;
+}
+
+.description {
+    font-family: "Average Sans";
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.tagsSection {
+    padding: 5px 15px;
+}
+
+.tag {
+    font-family: "Averia Gruesa Libre";
+    font-size: 13px;
+}
+
+.replySection {
+    /* padding: 5px 15px; */
+    background-color: var(--mantine-color-kakhi-9);
+}
+

@@ -1,0 +1,75 @@
+/* HelperCard.module.css */
+.card {
+    border: 3px solid hsl(185, 21%, 45%);
+    background: #f9f9ef;
+    border-radius: 25px;
+}
+
+.group {
+    justify-content: center;
+}
+
+.image {
+    border-radius: 25px;
+    border: 1px solid hsl(185, 21%, 45%);
+    width: 30%;
+    height: 85%;
+    position: absolute;
+    left: 10px;
+}
+
+.stack {
+    gap: 0.5rem;
+    height: 90%;
+    width: 75%;
+    padding: 0 0 0 85px;
+}
+
+.username {
+    font-size: var(--mantine-font-size-md);
+}
+
+.location {
+    font-size: var(--mantine-font-size-xs);
+}
+
+.serviceType {
+    font-size: var(--mantine-font-size-sm);
+}
+
+.serviceDescription {
+    font-size: var(--mantine-font-size-sm);
+}
+
+.button {
+    width: 100%;
+    border-radius: 25px;
+    height: 20px;
+    font-family: "Averia Gruesa Libre";
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 3px;
+    font-weight: 1;
+}
+
+/* .recommendButton {
+    width: 100%;
+    border-radius: 25px;
+    height: 20px;
+    font-family: "Averia Gruesa Libre";
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 3px;
+    font-weight: 1;
+}
+
+.deleteButton {
+    width: 100%;
+    border-radius: 25px;
+    height: 20px;
+    font-family: "Averia Gruesa Libre";
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 3px;
+    font-weight: 1;
+} */

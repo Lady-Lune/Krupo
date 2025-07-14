@@ -45,7 +45,7 @@ export default function App() {
       <Routes>
         {/* The following route is protected - unauthorized users can't access it */}
         <Route
-          path="/home"
+          path="/"
           element={
             <ProtectedRoute>
               <UserInfoProvider >
@@ -58,7 +58,7 @@ export default function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/register" element={<RegisterAndLogout />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<LandingPage />} />
+        {/* <Route path="/" element={<LandingPage />} /> */}
         {/* <Route path="/profile" element={<UserProfile />} /> */}
       </Routes> 
     </BrowserRouter>

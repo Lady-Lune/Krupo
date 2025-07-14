@@ -1,0 +1,32 @@
+/* HelperApplication.module.css */
+.card {
+    border-radius: 25px;
+    padding: var(--mantine-spacing-md);
+}
+
+.stack {
+    gap: 3px;
+}
+
+.text {
+    font-size: var(--mantine-font-size-sm);
+    padding: 0 3px;
+}
+
+.input {
+    font-size: var(--mantine-font-size-sm);
+}
+
+.textarea {
+    font-size: var(--mantine-font-size-sm);
+}
+
+.submitButton {
+    border-radius: 25px;
+    height: 25px;
+    font-family: "Averia Gruesa Libre";
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 3px;
+    font-weight: 100;
+}

@@ -1,0 +1,21 @@
+/* ReplySection.module.css */
+.replyButton {
+    font-size: var(--mantine-font-size-xs);
+    padding: 0;
+    background: none;
+    color: var(--mantine-color-dark-filled);
+}
+
+.textInput {
+    padding: 3px;
+}
+
+.deleteButton{
+    color: var(--mantine-color-orange-5);
+}
+
+.openreply{
+    width: 10%;
+    padding: 0;
+    color: black;
+}

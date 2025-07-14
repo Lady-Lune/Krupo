@@ -3,8 +3,7 @@ import { Grid } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { PostorGift } from "../../types/model_types"
 import Post from "../components/Post"
-import { response } from "./SampleResponse"
-
+import classes from './styles/GiftExchange.module.css'
 
 
 
@@ -13,7 +12,7 @@ interface GiftExchangeProps {
 }
 
 const GiftExchange = ({ refreshKey }: GiftExchangeProps) => {
-        const [gifts, setGifts] = useState<PostorGift[]>(response);
+        const [gifts, setGifts] = useState<PostorGift[] | null>(null);
         
         const fetchGifts = async () => {
             const response = await api.get('/api/gifts')
@@ -33,13 +32,14 @@ const GiftExchange = ({ refreshKey }: GiftExchangeProps) => {
 
     return (
     <>
-    <Grid p="md" gutter="xl" columns={12} justify="center"> 
+    <Grid gutter="xl" className={classes.grid} align="center"> 
         {
-        gifts.map(
+        gifts?.map(
             (post,index) => {
                 return (
                     <Grid.Col 
                         key={`${post.id}-${index}`}
+                        className={classes.gridcol}
                         span={{
                             base:12,
                             xs:10,

@@ -1,52 +1,55 @@
 import { colors } from '@/theme'
-import { Button, Card , Group, Image , Space, Stack , Text} from '@mantine/core'
-import { User } from '../../types/model_types'
+import { Button, Card , Group, Image , Tooltip, Stack , Text, Badge} from '@mantine/core'
+import { HelperCardType, User } from '../../types/model_types'
 import api from '@/api'
 import { useEffect, useState } from 'react'
 import { useUser } from './UserInfoContext'
+import classes from './styles/HelperCard.module.css'
 
 // User.username
 // User.location
 // HelperRole.serv_type
 // HelperRole.serv_desc
 export interface HelperCardProps{
-    user:User;
-    serv_type:string;
-    serv_desc:string;
-    helper_id:number;
+    data:HelperCardType
     onDelete?:() => void;
-
+    onRecommend?:() => void;
 }
 
-export default function HelperCard({helper_id, user, serv_type, serv_desc, onDelete}:HelperCardProps) {
-    const {currentUser} = useUser();
+export default function HelperCard({data, onDelete, onRecommend}:HelperCardProps) {
+    const {currentUser, refreshUser} = useUser();
     const [allowDelete, setAllowDelete] = useState<boolean>();
 
     useEffect(() => {
-            if (currentUser?.id === user?.id) {
+            if (currentUser?.id === data.user?.id) {
                 setAllowDelete(true);
             } else {
                 setAllowDelete(false);
             }
-        }, [currentUser, user?.id]);
+        }, [currentUser, data.user?.id]);
 
     const recommend = async () => {
         try {
-            const res = await api.post(`/api/recommend/${helper_id}/`)
+            const res = await api.post(`/api/recommend/${data.id}/`)
+            onRecommend?.()
         } catch(error) {
             console.log(error)
+        } finally {
+            refreshUser()
         }
         
     }
 
     const deleteHelperCard = async () => {
         try {
-            const res = await api.delete(`/api/helpers/${helper_id}/`)
+            const res = await api.delete(`/api/helpers/${data.id}/`)
             console.log('Post deleted successfully:', res)
             onDelete?.(); // Trigger parent component refresh
         } catch(error) {
             console.error('Error deleting post:', error)
             // You might want to show a toast notification or alert here
+        } finally {
+            refreshUser()
         }
     }
 
@@ -56,38 +59,30 @@ export default function HelperCard({helper_id, user, serv_type, serv_desc, onDel
         <>
             <Card
                 withBorder
-                bd="3px solid hsl(185, 21%, 45%)"
-                bg="#F9F9EF"
-                radius={25}
+                className={classes.card}
             >
                 <Group
-                    justify='center'
+                    className={classes.group}
                 >
-                 <Image
-                    src={user?.profile_pic}
-                    radius={25}
-                    bd="1px solid hsl(185, 21%, 45%)"
-                    w="30%"
-                    h="85%"
-                    pos="absolute"
-                    left={10}
-                />
-                <Stack gap={0.5} h="90%" w="75%" p="0 0 0 85"> {/*pos="absolute" right={10}*/}
-                    <Text size='md' >{user?.username}</Text> {/*w={265}*/}
-                    <Text size='xs' >{user?.location}</Text> {/*w={265}*/}
-                    <Text size='sm' >{serv_type}</Text> {/*w={265}*/}
-                    <Text size='sm'  lineClamp={4}>{serv_desc}</Text> {/*w={265}*/}
+                    <Image
+                        src={data.user?.profile_pic}
+                        className={classes.image}
+                    />
+                
+                <Stack className={classes.stack}> {/*pos="absolute" right={10}*/}
+                    <Group>
+                    <Text className={classes.username}>{data.user?.username}</Text> 
+                    <Tooltip label="Gift Requests" position="bottom">
+                            <Badge bg={colors["Moss Green"]} autoContrast circle>{data.recommendations || 0}</Badge>
+                    </Tooltip>
+                    </Group>
+                    <Text className={classes.location}>{data.user?.location}</Text> 
+                    <Text className={classes.serviceType}>{data.serv_type}</Text> 
+                    <Text className={classes.serviceDescription} lineClamp={4}>{data.serv_desc}</Text> 
                     { !allowDelete &&<Button 
                         onClick={recommend}
-                        fullWidth 
-                        radius={25} 
+                        className={classes.button}
                         bg={colors["Moss Green"]} 
-                        h={20} 
-                        ff="Averia Gruesa Libre" 
-                        fz={10} 
-                        lts={1} 
-                        p={3} 
-                        fw={1}
                     >
                             RECOMMEND
                     </Button>
@@ -95,15 +90,8 @@ export default function HelperCard({helper_id, user, serv_type, serv_desc, onDel
 
                     { allowDelete &&<Button 
                         onClick={deleteHelperCard}
-                        fullWidth 
-                        radius={25} 
+                        className={classes.button}
                         bg={colors["Orange"]} 
-                        h={20} 
-                        ff="Averia Gruesa Libre" 
-                        fz={10} 
-                        lts={1} 
-                        p={3} 
-                        fw={1}
                     >
                             DELETE
                     </Button>

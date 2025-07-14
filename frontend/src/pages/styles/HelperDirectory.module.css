@@ -1,0 +1,8 @@
+/* HelperDirectory.module.css */
+.grid {
+    padding: var(--mantine-spacing-md);
+    gap: var(--mantine-spacing-md);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}

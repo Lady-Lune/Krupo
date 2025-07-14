@@ -61,3 +61,8 @@ frontend/yarn-error.log*
 # System Files
 .DS_Store
 Thumbs.db
+
+sample_data.json
+sample_data_generator.py
+EnhancedSampleData.ts
+NewSampleData.ts

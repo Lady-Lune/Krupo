@@ -1,0 +1,95 @@
+/* Header section */
+.headerContainer {
+    height: 150px;
+    align-content: space-around;
+}
+
+.logo {
+    height: 100px;
+}
+
+/* Main container */
+.container {
+    max-width: 420px;
+    margin: 40px auto;
+}
+
+/* Title and text */
+.title {
+    text-align: center;
+}
+
+.subtitle {
+    text-align: center;
+    margin-top: 5px;
+}
+
+/* Paper container */
+.paper {
+    padding: 22px;
+    margin-top: 30px;
+    border-radius: var(--mantine-radius-md);
+    text-align: center;
+}
+
+/* Input fields */
+.input {
+    text-align: left;
+    border-radius: var(--mantine-radius-md);
+}
+
+.passwordInput {
+    text-align: left;
+    border-radius: var(--mantine-radius-md);
+}
+
+/* didn't have styling before */
+.fileInput {
+    border-radius: var(--mantine-radius-md);
+}
+
+.textInput {
+    border-radius: var(--mantine-radius-md);
+}
+
+/* Fieldset */
+.fieldset {
+    text-align: left;
+    background-color: var(--dark-skintone-d2);
+}
+
+/* Buttons */
+.nextButton {
+    border-radius: var(--mantine-radius-md);
+    font-weight: 100;
+}
+
+.prevButton {
+    border-radius: var(--mantine-radius-md);
+    font-weight: 100;
+}
+
+.joinButton {
+    border-radius: var(--mantine-radius-md);
+    font-family: "Averia Gruesa Libre";
+    letter-spacing: 1px;
+    padding: 3px;
+    font-weight: 100;
+}
+
+/* Groups didn't have styling before */
+.inputGroup {
+    flex-grow: 1;
+}
+
+/* Stack no styling originally before module*/
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Stepper */
+.stepper {
+    --stepper-step-size: 32px;
+}

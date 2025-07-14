@@ -1,0 +1,45 @@
+/* UserProfile.module.css */
+.image {
+    border: 1px solid black;
+    border-radius: var(--mantine-radius-md);
+}
+
+.nameGroup {
+    gap: 10px;
+    justify-content: center;
+}
+
+.statsGroup {
+    gap: 10px;
+    justify-content: center;
+}
+
+.locationGroup {
+    justify-content: space-between;
+}
+
+.locationText {
+    font-size: var(--mantine-font-size-sm);
+}
+
+.dateText {
+    font-size: var(--mantine-font-size-sm);
+}
+
+.socialGroup {
+    display: flex;
+    align-items: center;
+    gap: var(--mantine-spacing-xs);
+}
+
+.socialIcon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+
+.editGroup {
+    justify-content: center;
+    margin-top: var(--mantine-spacing-md);
+}
